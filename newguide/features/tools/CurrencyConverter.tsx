@@ -1,45 +1,16 @@
-// "use client";
-// import React, { useState } from "react";
 
-// const CurrencyConverter: React.FC = () => {
-//   const [jpy, setJpy] = useState(1000);
-//   const [npr, setNpr] = useState(jpy * 0.88);
-
-//   const handleJpyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const value = Number(e.target.value);
-//     setJpy(value);
-//     setNpr(Number((value * 0.88).toFixed(2)));
-//   };
-
-//   return (
-//     <div style={{ marginBottom: "2rem" }}>
-//       <h3>Currency Converter (JPY → NPR)</h3>
-//       <input
-//         type="number"
-//         value={jpy}
-//         onChange={handleJpyChange}
-//         style={{ padding: "0.5rem" }}
-//       />
-//       <span style={{ marginLeft: "1rem" }}>= {npr} NPR</span>
-//       <p style={{ fontSize: "0.9rem", color: "#888" }}>
-//         * Rate is approximate.
-//       </p>
-//     </div>
-//   );
-// };
-
-// export default CurrencyConverter;
 // "use client";
 // import React, { useEffect, useState } from "react";
 
 // const CurrencyConverter: React.FC = () => {
-//   const [jpy, setJpy] = useState(1000);
-//   const [npr, setNpr] = useState(0);
+//   const [amount, setAmount] = useState(1000);
+//   const [converted, setConverted] = useState(0);
 //   const [rate, setRate] = useState<number | null>(null);
 //   const [loading, setLoading] = useState(true);
 //   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+//   const [reverse, setReverse] = useState(false); // false = JPY→NPR, true = NPR→JPY
 
-//   // Fetch live exchange rate
+//   // Fetch exchange rate (JPY base)
 //   const fetchRate = async () => {
 //     try {
 //       setLoading(true);
@@ -47,7 +18,7 @@
 //       const data = await res.json();
 //       const newRate = data.rates?.NPR || 0.88;
 //       setRate(newRate);
-//       setNpr(Number((jpy * newRate).toFixed(2)));
+//       updateConversion(amount, newRate, reverse);
 //       setLastUpdated(new Date());
 //     } catch (err) {
 //       console.error("Failed to fetch exchange rate:", err);
@@ -57,39 +28,93 @@
 //     }
 //   };
 
-//   // Fetch on load + every 5 minutes
+//   // Update conversion based on direction
+//   const updateConversion = (value: number, rateValue: number | null, isReversed: boolean) => {
+//     if (!rateValue) return;
+//     const result = isReversed
+//       ? value / rateValue // NPR → JPY
+//       : value * rateValue; // JPY → NPR
+//     setConverted(Number(result.toFixed(2)));
+//   };
+
 //   useEffect(() => {
 //     fetchRate();
-//     const interval = setInterval(fetchRate, 5 * 60 * 1000); // 5 min
+//     const interval = setInterval(fetchRate, 5 * 60 * 1000); // auto refresh 5 min
 //     return () => clearInterval(interval);
 //   }, []);
 
-//   const handleJpyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 //     const value = Number(e.target.value);
-//     setJpy(value);
-//     if (rate) setNpr(Number((value * rate).toFixed(2)));
+//     setAmount(value);
+//     if (rate) updateConversion(value, rate, reverse);
+//   };
+
+//   const toggleReverse = () => {
+//     setReverse(!reverse);
+//     if (rate) updateConversion(converted, rate, !reverse);
+//   };
+
+//   const refreshNow = () => {
+//     fetchRate();
 //   };
 
 //   return (
 //     <div style={{ marginBottom: "2rem", textAlign: "center" }}>
-//       <h3>💱 Currency Converter (JPY → NPR)</h3>
+//       <h3>💱 Currency Converter</h3>
 
 //       {loading ? (
 //         <p>Loading live exchange rate...</p>
 //       ) : (
 //         <>
-//           <input
-//             type="number"
-//             value={jpy}
-//             onChange={handleJpyChange}
-//             style={{ padding: "0.5rem", width: "140px" }}
-//           />
-//           <span style={{ marginLeft: "1rem" }}>
-//             = <strong>{npr}</strong> NPR
-//           </span>
+//           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
+//             <span style={{ fontSize: "1.5rem" }}>{reverse ? "🇳🇵" : "🇯🇵"}</span>
+//             <input
+//               type="number"
+//               value={amount}
+//               onChange={handleAmountChange}
+//               style={{ padding: "0.5rem", width: "140px", textAlign: "center" }}
+//             />
+//             <span style={{ fontSize: "1.5rem" }}>➡️</span>
+//             <span style={{ fontSize: "1.5rem" }}>{reverse ? "🇯🇵" : "🇳🇵"}</span>
+//             <input
+//               type="text"
+//               value={converted}
+//               readOnly
+//               style={{ padding: "0.5rem", width: "140px", textAlign: "center", background: "#f8f8f8" }}
+//             />
+//           </div>
 
-//           <p style={{ fontSize: "0.9rem", color: "#555", marginTop: "0.5rem" }}>
-//             Current rate: <strong>1 JPY = {rate?.toFixed(2)} NPR</strong>
+//           <button
+//             onClick={toggleReverse}
+//             style={{
+//               background: "#007bff",
+//               color: "white",
+//               border: "none",
+//               padding: "0.5rem 1rem",
+//               borderRadius: "6px",
+//               cursor: "pointer",
+//               marginRight: "0.5rem",
+//             }}
+//           >
+//             🔁 Reverse
+//           </button>
+
+//           <button
+//             onClick={refreshNow}
+//             style={{
+//               background: "#28a745",
+//               color: "white",
+//               border: "none",
+//               padding: "0.5rem 1rem",
+//               borderRadius: "6px",
+//               cursor: "pointer",
+//             }}
+//           >
+//             🔄 Refresh
+//           </button>
+
+//           <p style={{ fontSize: "0.9rem", color: "#555", marginTop: "0.8rem" }}>
+//             1 JPY = <strong>{rate?.toFixed(2)} NPR</strong>
 //           </p>
 
 //           {lastUpdated && (
@@ -98,7 +123,7 @@
 //             </p>
 //           )}
 
-//           <p style={{ fontSize: "0.8rem", color: "#999", marginTop: "0.5rem" }}>
+//           <p style={{ fontSize: "0.8rem", color: "#999", marginTop: "0.3rem" }}>
 //             * Rates auto-refresh every 5 minutes.
 //           </p>
 //         </>
@@ -119,7 +144,6 @@ const CurrencyConverter: React.FC = () => {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [reverse, setReverse] = useState(false); // false = JPY→NPR, true = NPR→JPY
 
-  // Fetch exchange rate (JPY base)
   const fetchRate = async () => {
     try {
       setLoading(true);
@@ -137,18 +161,15 @@ const CurrencyConverter: React.FC = () => {
     }
   };
 
-  // Update conversion based on direction
   const updateConversion = (value: number, rateValue: number | null, isReversed: boolean) => {
     if (!rateValue) return;
-    const result = isReversed
-      ? value / rateValue // NPR → JPY
-      : value * rateValue; // JPY → NPR
+    const result = isReversed ? value / rateValue : value * rateValue;
     setConverted(Number(result.toFixed(2)));
   };
 
   useEffect(() => {
     fetchRate();
-    const interval = setInterval(fetchRate, 5 * 60 * 1000); // auto refresh 5 min
+    const interval = setInterval(fetchRate, 5 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -168,20 +189,47 @@ const CurrencyConverter: React.FC = () => {
   };
 
   return (
-    <div style={{ marginBottom: "2rem", textAlign: "center" }}>
-      <h3>💱 Currency Converter</h3>
+    <div
+      style={{
+        marginBottom: "2rem",
+        textAlign: "center",
+        backgroundColor: "var(--bg)",
+        color: "var(--text)",
+        padding: "1rem",
+        borderRadius: "12px",
+        transition: "background-color 0.3s ease, color 0.3s ease",
+      }}
+    >
+      <h3 style={{ marginBottom: "1rem", color: "var(--accent)" }}>💱 Currency Converter</h3>
 
       {loading ? (
         <p>Loading live exchange rate...</p>
       ) : (
         <>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1rem", marginBottom: "1rem" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "1rem",
+              marginBottom: "1rem",
+            }}
+          >
             <span style={{ fontSize: "1.5rem" }}>{reverse ? "🇳🇵" : "🇯🇵"}</span>
             <input
               type="number"
               value={amount}
               onChange={handleAmountChange}
-              style={{ padding: "0.5rem", width: "140px", textAlign: "center" }}
+              style={{
+                padding: "0.5rem",
+                width: "140px",
+                textAlign: "center",
+                borderRadius: "6px",
+                border: "1px solid var(--border)",
+                backgroundColor: "var(--panel)",
+                color: "var(--text)",
+                transition: "background-color 0.3s ease, color 0.3s ease, border 0.3s ease",
+              }}
             />
             <span style={{ fontSize: "1.5rem" }}>➡️</span>
             <span style={{ fontSize: "1.5rem" }}>{reverse ? "🇯🇵" : "🇳🇵"}</span>
@@ -189,20 +237,30 @@ const CurrencyConverter: React.FC = () => {
               type="text"
               value={converted}
               readOnly
-              style={{ padding: "0.5rem", width: "140px", textAlign: "center", background: "#f8f8f8" }}
+              style={{
+                padding: "0.5rem",
+                width: "140px",
+                textAlign: "center",
+                borderRadius: "6px",
+                border: "1px solid var(--border)",
+                backgroundColor: "var(--panel)",
+                color: "var(--text)",
+                transition: "background-color 0.3s ease, color 0.3s ease, border 0.3s ease",
+              }}
             />
           </div>
 
           <button
             onClick={toggleReverse}
             style={{
-              background: "#007bff",
-              color: "white",
+              background: "var(--accent)",
+              color: "#fff",
               border: "none",
               padding: "0.5rem 1rem",
               borderRadius: "6px",
               cursor: "pointer",
               marginRight: "0.5rem",
+              transition: "background-color 0.3s ease",
             }}
           >
             🔁 Reverse
@@ -211,28 +269,29 @@ const CurrencyConverter: React.FC = () => {
           <button
             onClick={refreshNow}
             style={{
-              background: "#28a745",
-              color: "white",
+              background: "var(--accent)",
+              color: "#fff",
               border: "none",
               padding: "0.5rem 1rem",
               borderRadius: "6px",
               cursor: "pointer",
+              transition: "background-color 0.3s ease",
             }}
           >
             🔄 Refresh
           </button>
 
-          <p style={{ fontSize: "0.9rem", color: "#555", marginTop: "0.8rem" }}>
+          <p style={{ fontSize: "0.9rem", color: "var(--text)", marginTop: "0.8rem", opacity: 0.8 }}>
             1 JPY = <strong>{rate?.toFixed(2)} NPR</strong>
           </p>
 
           {lastUpdated && (
-            <p style={{ fontSize: "0.8rem", color: "#888" }}>
+            <p style={{ fontSize: "0.8rem", color: "var(--text)", opacity: 0.6 }}>
               ⏱ Last updated: {lastUpdated.toLocaleTimeString()}
             </p>
           )}
 
-          <p style={{ fontSize: "0.8rem", color: "#999", marginTop: "0.3rem" }}>
+          <p style={{ fontSize: "0.8rem", color: "var(--text)", opacity: 0.6, marginTop: "0.3rem" }}>
             * Rates auto-refresh every 5 minutes.
           </p>
         </>

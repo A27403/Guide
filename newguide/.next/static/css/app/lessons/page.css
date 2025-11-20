@@ -1,0 +1,440 @@
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./features/lessons/lessons.module.css ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+.lessons_page__tYK4X {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fff9f0 0%, #ffffff 45%, #f6fbff 100%);
+  padding: 2.5rem 1rem 4rem;
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+.lessons_hero__I_Hvv {
+  max-width: 960px;
+  margin: 0 auto 2.5rem;
+  padding: 2.5rem;
+  border-radius: 32px;
+  background: radial-gradient(
+      circle at top left,
+      rgba(255, 200, 150, 0.35),
+      transparent 60%
+    ),
+    #0f172a;
+  color: #fff;
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.3);
+}
+
+.lessons_heroBadge__fczLd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lessons_heroContent__tZtFx {
+  margin-top: 1rem;
+}
+
+.lessons_heroTitle__Wu0e6 {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.lessons_heroSubtitle___TBYe {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+.lessons_heroStats__k2DDj {
+  margin-top: 1.75rem;
+  display: flex;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.lessons_statBlock__92JJx {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.lessons_statLabel__STNwm {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.lessons_statValue__JII_l {
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+
+.lessons_highlights___X1xA {
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-gap: 1.25rem;
+  gap: 1.25rem;
+}
+
+.lessons_explorerSection__DrAhI {
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 2rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+}
+
+.lessons_explorerHeader__On0gW {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.lessons_resultBadge__ygPHV {
+  align-self: flex-start;
+  background: #0f172a;
+  color: #fff;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.lessons_toolbar__NtLlO {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.lessons_searchBox__hWeMR {
+  flex: 1 1 280px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.lessons_searchHint__yFb6n {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.lessons_searchBox__hWeMR input {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+  color: #0f172a;
+  margin-top: 0.2rem;
+}
+
+.lessons_searchBox__hWeMR input::placeholder {
+  color: #94a3b8;
+}
+
+.lessons_filterGroup___uYY4 {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.lessons_filterChip__UzxB2 {
+  border: 1px solid #cbd5f5;
+  background: #fff;
+  color: #475569;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.lessons_filterChipActive__6Hw2_ {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
+}
+
+.lessons_highlightCard__N79O5 {
+  padding: 1.25rem;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.lessons_highlightEmoji__mYeyb {
+  font-size: 2rem;
+}
+
+.lessons_highlightTitle__oP8SC {
+  margin-top: 0.75rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.lessons_highlightText__2YzM7 {
+  margin-top: 0.45rem;
+  color: #475569;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.lessons_levelSection__LJFMG {
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+}
+
+.lessons_levelCard__XyEf0 {
+  background: #fff;
+  border-radius: 30px;
+  padding: 2rem;
+  border: 1px solid #f0f4ff;
+  box-shadow: 0 25px 45px rgba(15, 23, 42, 0.08);
+}
+
+.lessons_levelHeader__d9HWO {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.lessons_levelTitle__Iv_xc {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.lessons_levelDescription__DvgDi {
+  max-width: 520px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.lessons_levelBadge__Yjw83 {
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.lessons_focusList__bbvwE {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.lessons_focusList__bbvwE li {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  font-weight: 600;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.lessons_previewGrid__XZKP1 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-gap: 1rem;
+  gap: 1rem;
+}
+
+.lessons_previewCard__DJ0mz {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.lessons_previewKanji__X3z4l {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.35rem;
+}
+
+.lessons_kanjiGrid__IcJJ_ {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-gap: 1.5rem;
+  gap: 1.5rem;
+}
+
+.lessons_kanjiCard__u90iC {
+  border-radius: 22px;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.lessons_cardHeader__ITcKV {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.lessons_cardTag__1WE31 {
+  background: #fff;
+  border-radius: 999px;
+  border: 1px solid #cbd5f5;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.lessons_kanjiCharacter__Liv5c {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.lessons_meaning__afSgU {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #334155;
+}
+
+.lessons_readingRow__po6u7 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.lessons_readingLabel__mwmBD {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #94a3b8;
+}
+
+.lessons_readingValue__Rk5L7 {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.lessons_exampleBlock__rihiY {
+  padding: 1rem;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px dashed #cbd5f5;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lessons_exampleLine__G_YmP {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.lessons_exampleHeader__c4_mX {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.lessons_exampleJp__H5xYc {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.lessons_exampleReading__AsSYZ {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.lessons_exampleEn__m9Keq {
+  color: #475569;
+  font-size: 0.92rem;
+}
+
+.lessons_emptyState__5ucgT {
+  padding: 2rem;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: #475569;
+  text-align: center;
+  font-weight: 600;
+}
+
+.lessons_studyTips__CCkFT {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 28px;
+  background: #0f172a;
+  color: #fff;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-gap: 1.25rem;
+  gap: 1.25rem;
+}
+
+.lessons_tipTitle__04m_5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.lessons_tipText__hA0pZ {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 640px) {
+  .lessons_hero__I_Hvv {
+    padding: 1.75rem;
+  }
+
+  .lessons_levelCard__XyEf0 {
+    padding: 1.5rem;
+  }
+
+  .lessons_exampleBlock__rihiY {
+    font-size: 0.95rem;
+  }
+
+  .lessons_toolbar__NtLlO {
+    flex-direction: column;
+  }
+}

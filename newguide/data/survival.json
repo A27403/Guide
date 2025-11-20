@@ -1,0 +1,71 @@
+{
+  "categories": [
+    {
+      "name": "Banks",
+      "places": [
+        {
+          "name": "Japan Post Bank Naha Branch",
+          "address": "〒900-8799 沖縄県那覇市旭町116-37",
+          "tips": [
+            "Bring Residence Card, Passport, Student ID",
+            "Say: 'I want to open a bank account.' → 口座を開きたいです。"
+          ]
+        },
+        {
+          "name": "Okinawa Bank Head Office",
+          "address": "〒900-0015 沖縄県那覇市久茂地3丁目10-1",
+          "tips": []
+        }
+      ]
+    },
+    {
+      "name": "Hospitals",
+      "places": [
+        {
+          "name": "Naha City Hospital",
+          "address": "〒902-0076 沖縄県那覇市与儀1丁目3-21",
+          "tips": [
+            "Bring Health Insurance card and Residence Card",
+            "Say: 'I need a doctor.' → 医者が必要です。"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cultural Notes",
+      "content": [
+        {
+          "title": "Greetings & Politeness",
+          "description": "Bow when meeting someone. Say hello (こんにちは), thank you (ありがとう)."
+        },
+        {
+          "title": "Garbage & Recycling",
+          "table": [
+            { "type": "Burnable", "examples": "Food scraps, paper", "notes": "Collected twice a week" },
+            { "type": "Non-burnable", "examples": "Metal, batteries", "notes": "Once a month" }
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "category": "Banks",
+      "question": "What documents to open a bank account?",
+      "answers": {
+        "en": "Residence Card, Passport, Student ID, Japanese address & phone number",
+        "ne": "रेसिडेन्स कार्ड, पासपोर्ट, विद्यार्थी परिचयपत्र, जापानी ठेगाना र फोन नम्बर।",
+        "jp": "在留カード、パスポート、学生証、日本の住所と電話番号。"
+      }
+    },
+    {
+      "category": "Hospitals",
+      "question": "What to bring to hospital?",
+      "answers": {
+        "en": "Insurance card and Residence Card",
+        "ne": "बीमा कार्ड र रेसिडेन्स कार्ड।",
+        "jp": "保険証と在留カード。"
+      }
+    }
+  ]
+}

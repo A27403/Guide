@@ -98,7 +98,7 @@ export default function RootLayout({
       <body>
         <Navbar />
         <main className="container">{children}</main>
-        <footer>&copy; {new Date().getFullYear()} Nepalese Guide to Japan</footer>
+       
       </body>
     </html>
   );

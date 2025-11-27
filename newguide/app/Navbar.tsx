@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
       <div className="nav-container">
         <h1 className="logo">
           <Link href="/">
-            Nepalese Guide
+            Japan Nepal Guide
           </Link>
         </h1>
 
@@ -92,11 +92,9 @@ const Navbar: React.FC = () => {
           <li><Link href="/">Home</Link></li>
            <li><Link href="/survival">Survival</Link></li>
           <li><Link href="/lessons">Lessons</Link></li>
-         
           <li><Link href="/tools">Tools</Link></li>
-          <li><Link href="/news">News</Link></li>
           <li><Link href="/search">Search</Link></li>
-          <li><Link href="/login">Login</Link></li>
+         
         </ul>
       </div>
 

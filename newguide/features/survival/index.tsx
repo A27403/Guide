@@ -1,1586 +1,768 @@
 
-// "use client";
-// import React, { useState } from "react";
-
-// // ✅ Reusable Map Component
-// const AddressWithMap = ({
-//   address,
-//   height = 200,
-// }: {
-//   address: string;
-//   height?: number;
-// }) => {
-//   const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(
-//     address
-//   )}&output=embed`;
-//   return (
-//     <div style={{ marginTop: "0.5rem" }}>
-//       <p style={{ fontWeight: 500 }}>{address}</p>
-//       <iframe
-//         src={mapUrl}
-//         width="100%"
-//         height={height}
-//         loading="lazy"
-//         style={{ border: 0, borderRadius: "12px", marginTop: "0.3rem" }}
-//       ></iframe>
-//     </div>
-//   );
-// };
-
-// // ✅ Locations
-// const locations = {
-//   Banks: [
-//     { name: "Japan Post Bank (JP Bank) Naha Branch", address: "〒900-8799 沖縄県那覇市旭町116−37" },
-//     { name: "Okinawa Bank Head Office", address: "〒900-0015 沖縄県那覇市久茂地3丁目10−1" },
-//     { name: "Bank of the Ryukyus", address: "〒900-0015 沖縄県那覇市久茂地1丁目11−1" },
-//   ],
-//   Transport: [
-//     { name: "Naha Bus Terminal", address: "〒900-0021 沖縄県那覇市泉崎1丁目20−1" },
-//     { name: "Asahibashi Monorail Station", address: "〒900-0029 沖縄県那覇市旭町" },
-//     { name: "Miebashi Monorail Station", address: "〒900-0016 沖縄県那覇市前島2丁目" },
-//   ],
-//   Emergency: [
-//     { name: "Naha City Hospital", address: "〒902-0076 沖縄県那覇市与儀1丁目3−21" },
-//     { name: "Okinawa Prefectural Police Headquarters", address: "〒900-0021 沖縄県那覇市泉崎1丁目2−2" },
-//   ],
-//   Embassy: [
-//     { name: "Embassy of Nepal in Tokyo", address: "〒108-0074 東京都港区高輪4丁目17−23" },
-//     { name: "Honorary Consulate of Nepal in Okinawa", address: "〒900-0015 沖縄県那覇市久茂地2丁目3−15" },
-//   ],
-//   Restaurants: [
-//     { name: "Nepali Chulo Restaurant (Tokyo)", address: "〒169-0073 東京都新宿区百人町1丁目19−13" },
-//     { name: "Everest Kitchen Okinawa", address: "〒901-0152 沖縄県那覇市小禄1丁目1−1" },
-//     { name: "Himalayan Curry House Tokyo", address: "〒160-0023 東京都新宿区西新宿7丁目8−11" },
-//   ],
-// };
-
-// export default function SurvivalGuide() {
-//   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-//   const [searchQuery, setSearchQuery] = useState<string>("");
-
-//   // ✅ Map search query to categories
-//   const searchToCategory = (query: string) => {
-//     const q = query.toLowerCase();
-//     if (q.includes("bank")) return "Banks";
-//     if (q.includes("restaurant") || q.includes("food") || q.includes("curry") || q.includes("nepali")) return "Restaurants";
-//     if (q.includes("police") || q.includes("hospital") || q.includes("emergency")) return "Emergency";
-//     if (q.includes("transport") || q.includes("station") || q.includes("bus") || q.includes("train")) return "Transport";
-//     if (q.includes("embassy") || q.includes("consulate")) return "Embassy";
-//     return null;
-//   };
-
-//   const handleSearch = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     const category = searchToCategory(searchQuery);
-//     setSelectedCategory(category);
-//   };
-
-//   return (
-//     <div style={{ padding: "1rem", backgroundColor: "#fffaf0", minHeight: "100vh" }}>
-//       <h1 style={{ textAlign: "center", fontSize: "2.5rem", fontWeight: "bold", color: "#c47f00", marginBottom: "2rem" }}>
-//        Survival Guide for Students in Japan
-//       </h1>
-
-//       {/* 🔹 Search bar */}
-//       <form onSubmit={handleSearch} style={{ display: "flex", justifyContent: "center", marginBottom: "2rem", gap: "0.5rem" }}>
-//         <input
-//           type="text"
-//           placeholder="Search category (e.g., bank, restaurant, police)"
-//           value={searchQuery}
-//           onChange={(e) => setSearchQuery(e.target.value)}
-//           style={{
-//             padding: "0.6rem 1rem",
-//             borderRadius: "8px",
-//             border: "1px solid #ccc",
-//             width: "300px",
-//             fontSize: "1rem",
-//           }}
-//         />
-//         <button
-//           type="submit"
-//           style={{
-//             background: "#2563eb",
-//             color: "#fff",
-//             border: "none",
-//             borderRadius: "8px",
-//             padding: "0.6rem 1.2rem",
-//             cursor: "pointer",
-//           }}
-//         >
-//           Search
-//         </button>
-//       </form>
-
-//       {/* 🔹 Clickable categories */}
-//       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", justifyContent: "center", marginBottom: "2rem" }}>
-//         {Object.keys(locations).map((cat) => (
-//           <button
-//             key={cat}
-//             onClick={() => setSelectedCategory(cat === selectedCategory ? null : cat)}
-//             style={{
-//               padding: "0.5rem 1rem",
-//               borderRadius: "8px",
-//               border: "1px solid #b36e00",
-//               backgroundColor: selectedCategory === cat ? "#b36e00" : "#fff",
-//               color: selectedCategory === cat ? "#fff" : "#b36e00",
-//               cursor: "pointer",
-//               fontWeight: 500,
-//             }}
-//           >
-//             {cat}
-//           </button>
-//         ))}
-//       </div>
-
-//       {/* 🔹 Show maps dynamically */}
-//       {selectedCategory ? (
-//         <section style={{ marginTop: "1rem" }}>
-//           <h3 style={{ fontSize: "1.5rem", fontWeight: 600, marginBottom: "1rem", color: "#b36e00" }}>
-//             {selectedCategory} Locations
-//           </h3>
-//           {locations[selectedCategory as keyof typeof locations].map((loc, idx) => (
-//             <div key={idx} style={{ marginBottom: "1.5rem" }}>
-//               <strong>{loc.name}</strong>
-//               <AddressWithMap address={loc.address} height={200} />
-//             </div>
-//           ))}
-//         </section>
-//       ) : searchQuery && (
-//         <p style={{ textAlign: "center", color: "#777" }}>No results found for "{searchQuery}"</p>
-//       )}
-
-//       {/* 🔹 Other Guide Info */}
-//       <section style={{ marginTop: "2.5rem" }}>
-//         <h3>🏠 Residence Registration / 住民登録</h3>
-//         <p>
-//           Within 14 days after arriving, visit your local city or ward office to register your residence (住民登録 / じゅうみんとうろく).
-//         </p>
-
-//         <h3>💳 Opening a Bank Account / 銀行口座</h3>
-//         <p>
-//           Bring your residence card and student ID. Major banks include JP Bank and local banks like Okinawa Bank.
-//         </p>
-
-//         <h3>🚆 Public Transport / 公共交通機関</h3>
-//         <p>
-//           Use IC cards like Suica or OKICA for easy travel on buses and trains.
-//         </p>
-
-//         <h3>🚨 Emergency Contacts / 緊急連絡先</h3>
-//         <ul>
-//           <li>Police (警察): 110</li>
-//           <li>Ambulance / Fire (救急・消防): 119</li>
-//           <li>Japan Helpline (English): 0570-000-911</li>
-//         </ul>
-
-//         <h3>🗑️ Garbage Separation / ごみの分別</h3>
-//         <p>
-//           Separate trash properly: burnable, non-burnable, and recyclable. Follow your city’s collection schedule.
-//         </p>
-//       </section>
-//     </div>
-//   );
-// }
-// "use client";
-// import React, { useState } from "react";
-
-// // Reusable Map Component
-// const AddressWithMap = ({
-//   address,
-//   height = 200,
-// }: {
-//   address: string;
-//   height?: number;
-// }) => {
-//   const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(
-//     address
-//   )}&output=embed`;
-//   return (
-//     <div style={{ marginTop: "0.5rem" }}>
-//       <p style={{ fontWeight: 500, color: "var(--text)" }}>{address}</p>
-//       <iframe
-//         src={mapUrl}
-//         width="100%"
-//         height={height}
-//         loading="lazy"
-//         style={{
-//           border: 0,
-//           borderRadius: "12px",
-//           marginTop: "0.3rem",
-//           backgroundColor: "var(--panel)",
-//         }}
-//       ></iframe>
-//     </div>
-//   );
-// };
-
-// // Locations Data
-// const locations = {
-//   Banks: [
-//     { name: "Japan Post Bank (JP Bank) Naha Branch", address: "〒900-8799 沖縄県那覇市旭町116−37" },
-//     { name: "Okinawa Bank Head Office", address: "〒900-0015 沖縄県那覇市久茂地3丁目10−1" },
-//     { name: "Bank of the Ryukyus", address: "〒900-0015 沖縄県那覇市久茂地1丁目11−1" },
-//   ],
-//   Transport: [
-//     { name: "Naha Bus Terminal", address: "〒900-0021 沖縄県那覇市泉崎1丁目20−1" },
-//     { name: "Asahibashi Monorail Station", address: "〒900-0029 沖縄県那覇市旭町" },
-//     { name: "Miebashi Monorail Station", address: "〒900-0016 沖縄県那覇市前島2丁目" },
-//   ],
-//   Emergency: [
-//     { name: "Naha City Hospital", address: "〒902-0076 沖縄県那覇市与儀1丁目3−21" },
-//     { name: "Okinawa Prefectural Police Headquarters", address: "〒900-0021 沖縄県那覇市泉崎1丁目2−2" },
-//   ],
-//   Embassy: [
-//     { name: "Embassy of Nepal in Tokyo", address: "〒108-0074 東京都港区高輪4丁目17−23" },
-//     { name: "Honorary Consulate of Nepal in Okinawa", address: "〒900-0015 沖縄県那覇市久茂地2丁目3−15" },
-//   ],
-//   Restaurants: [
-//     { name: "Nepali Chulo Restaurant (Tokyo)", address: "〒169-0073 東京都新宿区百人町1丁目19−13" },
-//     { name: "Everest Kitchen Okinawa", address: "〒901-0152 沖縄県那覇市小禄1丁目1−1" },
-//     { name: "Himalayan Curry House Tokyo", address: "〒160-0023 東京都新宿区西新宿7丁目8−11" },
-//   ],
-// };
-
-// export default function SurvivalGuide() {
-//   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-//   const [searchQuery, setSearchQuery] = useState<string>("");
-
-//   const searchToCategory = (query: string) => {
-//     const q = query.toLowerCase();
-//     if (q.includes("bank")) return "Banks";
-//     if (q.includes("restaurant") || q.includes("food") || q.includes("curry") || q.includes("nepali")) return "Restaurants";
-//     if (q.includes("police") || q.includes("hospital") || q.includes("emergency")) return "Emergency";
-//     if (q.includes("transport") || q.includes("station") || q.includes("bus") || q.includes("train")) return "Transport";
-//     if (q.includes("embassy") || q.includes("consulate")) return "Embassy";
-//     return null;
-//   };
-
-//   const handleSearch = (e: React.FormEvent) => {
-//     e.preventDefault();
-//     const category = searchToCategory(searchQuery);
-//     setSelectedCategory(category);
-//   };
-
-//   return (
-//     <div
-//       style={{
-//         padding: "1rem",
-//         backgroundColor: "var(--bg)",
-//         color: "var(--text)",
-//         minHeight: "100vh",
-//         transition: "background-color 0.3s ease, color 0.3s ease",
-//         fontFamily: "sans-serif",
-//       }}
-//     >
-//       <h1
-//         style={{
-//           textAlign: "center",
-//           fontSize: "2.5rem",
-//           fontWeight: "bold",
-//           color: "var(--accent)",
-//           marginBottom: "2rem",
-//           transition: "color 0.3s ease",
-//         }}
-//       >
-//         Survival Guide for Students in Japan
-//       </h1>
-
-//       {/* Search */}
-//       <form
-//         onSubmit={handleSearch}
-//         style={{ display: "flex", justifyContent: "center", marginBottom: "2rem", gap: "0.5rem" }}
-//       >
-//         <input
-//           type="text"
-//           placeholder="Search category (bank, restaurant, police...)"
-//           value={searchQuery}
-//           onChange={(e) => setSearchQuery(e.target.value)}
-//           style={{
-//             padding: "0.6rem 1rem",
-//             borderRadius: "8px",
-//             border: "1px solid var(--border)",
-//             width: "300px",
-//             fontSize: "1rem",
-//             backgroundColor: "var(--panel)",
-//             color: "var(--text)",
-//             transition: "background-color 0.3s ease, color 0.3s ease, border 0.3s ease",
-//           }}
-//         />
-//         <button
-//           type="submit"
-//           style={{
-//             background: "var(--accent)",
-//             color: "#fff",
-//             border: "none",
-//             borderRadius: "8px",
-//             padding: "0.6rem 1.2rem",
-//             cursor: "pointer",
-//           }}
-//         >
-//           Search
-//         </button>
-//       </form>
-
-//       {/* Category buttons */}
-//       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", justifyContent: "center", marginBottom: "2rem" }}>
-//         {Object.keys(locations).map((cat) => (
-//           <button
-//             key={cat}
-//             onClick={() => setSelectedCategory(cat === selectedCategory ? null : cat)}
-//             style={{
-//               padding: "0.5rem 1rem",
-//               borderRadius: "8px",
-//               border: `1px solid var(--accent)`,
-//               backgroundColor: selectedCategory === cat ? "var(--accent)" : "var(--panel)",
-//               color: selectedCategory === cat ? "#fff" : "var(--text)",
-//               cursor: "pointer",
-//               fontWeight: 500,
-//               transition: "background-color 0.3s ease, color 0.3s ease",
-//             }}
-//           >
-//             {cat}
-//           </button>
-//         ))}
-//       </div>
-
-//       {/* Maps */}
-//       {selectedCategory ? (
-//         <section style={{ marginTop: "1rem" }}>
-//           <h3 style={{ fontSize: "1.5rem", fontWeight: 600, marginBottom: "1rem", color: "var(--accent)" }}>
-//             {selectedCategory} Locations
-//           </h3>
-//           {locations[selectedCategory as keyof typeof locations].map((loc, idx) => (
-//             <div key={idx} style={{ marginBottom: "1.5rem" }}>
-//               <strong style={{ color: "var(--text)" }}>{loc.name}</strong>
-//               <AddressWithMap address={loc.address} height={200} />
-//             </div>
-//           ))}
-//         </section>
-//       ) : searchQuery && (
-//         <p style={{ textAlign: "center", color: "var(--text)", opacity: 0.7 }}>
-//           No results found for "{searchQuery}"
-//         </p>
-//       )}
-
-//       {/* Other Guide */}
-//       <section style={{ marginTop: "2.5rem" }}>
-//         <h3 style={{ color: "var(--accent)" }}>🏠 Residence Registration / 住民登録</h3>
-//         <p>Within 14 days after arriving, visit your local city or ward office to register your residence.</p>
-
-//         <h3 style={{ color: "var(--accent)" }}>💳 Opening a Bank Account / 銀行口座</h3>
-//         <p>Bring your residence card and student ID. Major banks include JP Bank and local banks like Okinawa Bank.</p>
-
-//         <h3 style={{ color: "var(--accent)" }}>🚆 Public Transport / 公共交通機関</h3>
-//         <p>Use IC cards like Suica or OKICA for easy travel on buses and trains.</p>
-
-//         <h3 style={{ color: "var(--accent)" }}>🚨 Emergency Contacts / 緊急連絡先</h3>
-//         <ul>
-//           <li>Police (警察): 110</li>
-//           <li>Ambulance / Fire (救急・消防): 119</li>
-//           <li>Japan Helpline (English): 0570-000-911</li>
-//         </ul>
-
-//         <h3 style={{ color: "var(--accent)" }}>🗑️ Garbage Separation / ごみの分別</h3>
-//         <p>Separate trash properly: burnable, non-burnable, and recyclable. Follow your city’s collection schedule.</p>
-//       </section>
-//     </div>
-//   );
-// }
-// "use client";
-// import React, { useState } from "react";
-
-// // Reusable Map Component
-// const AddressWithMap = ({ address, height = 200 }) => {
-//   const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(
-//     address
-//   )}&output=embed`;
-
-//   return (
-//     <div className="mt-2">
-//       <p className="font-medium text-[var(--text)]">{address}</p>
-//       <iframe
-//         src={mapUrl}
-//         width="100%"
-//         height={height}
-//         loading="lazy"
-//         className="border-0 rounded-xl mt-1 bg-[var(--panel)]"
-//       ></iframe>
-//     </div>
-//   );
-// };
-
-// // Locations Data
-// const locations = {
-//   Banks: [
-//     { name: "Japan Post Bank (JP Bank) Naha Branch", address: "〒900-8799 沖縄県那覇市旭町116−37" },
-//     { name: "Okinawa Bank Head Office", address: "〒900-0015 沖縄県那覇市久茂地3丁目10−1" },
-//     { name: "Bank of the Ryukyus", address: "〒900-0015 沖縄県那覇市久茂地1丁目11−1" },
-//   ],
-//   Transport: [
-//     { name: "Naha Bus Terminal", address: "〒900-0021 沖縄県那覇市泉崎1丁目20−1" },
-//     { name: "Asahibashi Monorail Station", address: "〒900-0029 沖縄県那覇市旭町" },
-//     { name: "Miebashi Monorail Station", address: "〒900-0016 沖縄県那覇市前島2丁目" },
-//   ],
-//   Emergency: [
-//     { name: "Naha City Hospital", address: "〒902-0076 沖縄県那覇市与儀1丁目3−21" },
-//     { name: "Okinawa Prefectural Police Headquarters", address: "〒900-0021 沖縄県那覇市泉崎1丁目2−2" },
-//   ],
-//   Embassy: [
-//     { name: "Embassy of Nepal in Tokyo", address: "〒108-0074 東京都港区高輪4丁目17−23" },
-//     { name: "Honorary Consulate of Nepal in Okinawa", address: "〒900-0015 沖縄県那覇市久茂地2丁目3−15" },
-//   ],
-//   Restaurants: [
-//     { name: "Nepali Chulo Restaurant (Tokyo)", address: "〒169-0073 東京都新宿区百人町1丁目19−13" },
-//     { name: "Everest Kitchen Okinawa", address: "〒901-0152 沖縄県那覇市小禄1丁目1−1" },
-//     { name: "Himalayan Curry House Tokyo", address: "〒160-0023 東京都新宿区西新宿7丁目8−11" },
-//   ],
-// };
-
-// export default function SurvivalGuide() {
-//   const [expandedLocation, setExpandedLocation] = useState(null);
-//   const [expandedSection, setExpandedSection] = useState(null);
-//   const [lang, setLang] = useState("en");
-
-//   const t = {
-//     en: {
-//       title: "Survival Guide for Students in Japan",
-//       residence: "Residence Registration / 住民登録",
-//       residenceDesc: "Within 14 days after arriving, visit your local city or ward office to register your residence.",
-//       bank: "Opening a Bank Account / 銀行口座",
-//       bankDesc: "Bring your residence card and student ID. Major banks include JP Bank and Okinawa Bank.",
-//       transport: "Public Transport / 公共交通機関",
-//       transportDesc: "Use IC cards like Suica or OKICA for easy travel on buses and trains.",
-//       emergency: "Emergency Contacts / 緊急連絡先",
-//       garbage: "Garbage Separation / ごみの分別",
-//     },
-//     jp: {
-//       title: "日本での学生生活ガイド",
-//       residence: "住民登録 / Residence Registration",
-//       residenceDesc: "到着後14日以内に市役所または区役所で住民登録を行ってください。",
-//       bank: "銀行口座の開設 / Opening a Bank Account",
-//       bankDesc: "在留カードと学生証を持参してください。主要銀行はゆうちょ銀行や沖縄銀行です。",
-//       transport: "公共交通機関 / Public Transport",
-//       transportDesc: "Suica や OKICA などのICカードを使うと便利です。",
-//       emergency: "緊急連絡先 / Emergency Contacts",
-//       garbage: "ごみの分別 / Garbage Separation",
-//     },
-//     np: {
-//       title: "जापानमा विद्यार्थीहरूको लागि गाइड",
-//       residence: "बसोबास दर्ता / 住民登録",
-//       residenceDesc: "जापान आइपुगेको 14 दिनभित्र स्थानीय कार्यालयमा दर्ता गर्नुहोस्।",
-//       bank: "बैंक खाता खोल्ने / 銀行口座",
-//       bankDesc: "रेजिडेन्स कार्ड र छात्र परिचयपत्र ल्याउनुहोस्।",
-//       transport: "सार्वजनिक यातायात / 公共交通機関",
-//       transportDesc: "Suica वा OKICA कार्ड प्रयोग गरेर सजिलो यात्रा।",
-//       emergency: "आपतकालीन सम्पर्क / 緊急連絡先",
-//       garbage: "फोहर व्यवस्थापन / ごみの分別",
-//     },
-//   };
-
-//   return (
-//     <div className="p-4 bg-[var(--bg)] text-[var(--text)] min-h-screen transition-colors duration-300 font-sans">
-//       {/* LANGUAGE SWITCH */}
-//       <div className="flex justify-end mb-4 gap-2">
-//         {['en','jp','np'].map(code => (
-//           <button
-//             key={code}
-//             onClick={() => setLang(code)}
-//             className={`px-3 py-1 rounded-lg border ${lang === code ? 'bg-[var(--accent)] text-white' : 'bg-[var(--panel)] text-[var(--text)]'}`}
-//           >
-//             {code.toUpperCase()}
-//           </button>
-//         ))}
-//       </div>
-
-//       <h1 className="text-center text-4xl font-bold text-[var(--accent)] mb-8">
-//         {t[lang].title}
-//       </h1>
-
-//       {/* CATEGORY SECTIONS */}
-//       {Object.keys(locations).map((cat) => (
-//         <div key={cat} className="mb-6">
-//           <button
-//             onClick={() => setExpandedSection(expandedSection === cat ? null : cat)}
-//             className="w-full flex justify-between items-center bg-[var(--panel)] border border-[var(--accent)] rounded-lg p-3 font-semibold cursor-pointer hover:opacity-80 transition"
-//           >
-//             {cat}
-//             <span>{expandedSection === cat ? '−' : '+'}</span>
-//           </button>
-
-//           <div className={`overflow-hidden transition-all duration-500 ${expandedSection === cat ? 'max-h-screen' : 'max-h-0'}`}>
-//             <div className="mt-3 pl-3 border-l-2 border-[var(--accent)] space-y-3">
-//               {locations[cat].map((loc, idx) => (
-//                 <div key={idx}>
-//                   <button
-//                     onClick={() => setExpandedLocation(expandedLocation === loc.name ? null : loc.name)}
-//                     className="w-full flex justify-between text-left text-lg font-medium text-[var(--text)] cursor-pointer hover:text-[var(--accent)]"
-//                   >
-//                     {loc.name}
-//                     <span>{expandedLocation === loc.name ? '▲' : '▼'}</span>
-//                   </button>
-
-//                   <div className={`transition-all overflow-hidden duration-500 ${expandedLocation === loc.name ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
-//                     <div className="ml-2">
-//                       <AddressWithMap address={loc.address} height={200} />
-//                     </div>
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         </div>
-//       ))}
-
-//       {/* TIPS */}
-//       <div className="mt-10 space-y-6">
-//         <details className="bg-[var(--panel)] p-4 rounded-lg">
-//           <summary className="cursor-pointer text-xl font-semibold text-[var(--accent)]">{t[lang].residence}</summary>
-//           <p className="mt-2">{t[lang].residenceDesc}</p>
-//         </details>
-
-//         <details className="bg-[var(--panel)] p-4 rounded-lg">
-//           <summary className="cursor-pointer text-xl font-semibold text-[var(--accent)]">{t[lang].bank}</summary>
-//           <p className="mt-2">{t[lang].bankDesc}</p>
-//         </details>
-
-//         <details className="bg-[var(--panel)] p-4 rounded-lg">
-//           <summary className="cursor-pointer text-xl font-semibold text-[var(--accent)]">{t[lang].transport}</summary>
-//           <p className="mt-2">{t[lang].transportDesc}</p>
-//         </details>
-//       </div>
-//     </div>
-//   );
-// }
-// "use client";
-// import React, { useState, useRef, useEffect } from "react";
-
-// /* -------------------------
-//    Small helper components
-//    ------------------------- */
-
-// const PlusIcon = ({ size = 18 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
-//     <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-//   </svg>
-// );
-// const MinusIcon = ({ size = 18 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
-//     <path fill="currentColor" d="M5 11h14v2H5z" />
-//   </svg>
-// );
-// const ChevronDown = ({ size = 16 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
-//     <path fill="currentColor" d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
-//   </svg>
-// );
-// const ChevronUp = ({ size = 16 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
-//     <path fill="currentColor" d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
-//   </svg>
-// );
-
-// /* -------------------------
-//    Address iframe component
-//    ------------------------- */
-
-// const AddressWithMap = ({ address, height = 240 }) => {
-//   const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(
-//     address
-//   )}&output=embed`;
-
-//   return (
-//     <div
-//       style={{
-//         marginTop: 8,
-//         borderRadius: 12,
-//         overflow: "hidden",
-//         boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
-//       }}
-//     >
-//       <p style={{ fontWeight: 600, margin: 8 }}>{address}</p>
-//       <div style={{ background: "var(--panel)", padding: 6 }}>
-//         <iframe
-//           title={`map-${address}`}
-//           src={mapUrl}
-//           width="100%"
-//           height={height}
-//           loading="lazy"
-//           style={{ border: 0, borderRadius: 8, display: "block" }}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// /* -------------------------
-//    Collapsible: measures inner height and animates
-//    ------------------------- */
-
-// function Collapsible({ open = false, children, transition = "300ms" }) {
-//   const ref = useRef(null);
-//   const [maxH, setMaxH] = useState(open ? "none" : "0px");
-//   const [isOpen, setIsOpen] = useState(open);
-
-//   useEffect(() => {
-//     // measure when open changes
-//     const el = ref.current;
-//     if (!el) return;
-
-//     if (isOpen) {
-//       // set to exact scrollHeight, then after animation ends set to 'none' so it fits content
-//       const measured = el.scrollHeight;
-//       setMaxH(`${measured}px`);
-//       const t = setTimeout(() => setMaxH("none"), parseInt(transition) + 30);
-//       return () => clearTimeout(t);
-//     } else {
-//       // collapsing: from 'none' -> measured px -> 0px to animate
-//       const measured = el.scrollHeight;
-//       // force measured value first to start the transition
-//       setMaxH(`${measured}px`);
-//       // next tick set to 0 to animate
-//       requestAnimationFrame(() => {
-//         requestAnimationFrame(() => {
-//           setMaxH("0px");
-//         });
-//       });
-//     }
-//   }, [isOpen, transition]);
-
-//   // If parent wants to toggle externally, expose setter by cloning children? Simpler: children will include setter.
-//   return (
-//     <div
-//       style={{
-//         maxHeight: maxH,
-//         overflow: "hidden",
-//         transition: `max-height ${transition} ease`,
-//       }}
-//       ref={ref}
-//     >
-//       {children}
-//       {/* a tiny spacer so scrollHeight isn't 0 when empty */}
-//       <div style={{ height: 0 }} />
-//       {/* toggler control: parent manages isOpen state via returned setter */}
-//       <button
-//         aria-expanded={isOpen}
-//         onClick={() => setIsOpen((s) => !s)}
-//         style={{
-//           display: "none",
-//           // hidden: used only if you want an internal toggle
-//         }}
-//       />
-//     </div>
-//   );
-// }
-
-// /* -------------------------
-//    CollapsibleItem: single location row with map
-//    ------------------------- */
-
-// function CollapsibleItem({ name, children, defaultOpen = false }) {
-//   const contentRef = useRef(null);
-//   const [open, setOpen] = useState(defaultOpen);
-//   const [maxH, setMaxH] = useState(open ? "none" : "0px");
-//   const transition = 240;
-
-//   useEffect(() => {
-//     const el = contentRef.current;
-//     if (!el) return;
-//     if (open) {
-//       const h = el.scrollHeight;
-//       setMaxH(`${h}px`);
-//       const t = setTimeout(() => setMaxH("none"), transition + 20);
-//       return () => clearTimeout(t);
-//     } else {
-//       const h = el.scrollHeight;
-//       setMaxH(`${h}px`);
-//       requestAnimationFrame(() => {
-//         requestAnimationFrame(() => setMaxH("0px"));
-//       });
-//     }
-//   }, [open]);
-
-//   return (
-//     <div style={{ marginBottom: 10 }}>
-//       <button
-//         onClick={() => setOpen((s) => !s)}
-//         aria-expanded={open}
-//         style={{
-//           width: "100%",
-//           textAlign: "left",
-//           display: "flex",
-//           justifyContent: "space-between",
-//           alignItems: "center",
-//           background: "transparent",
-//           border: "none",
-//           padding: "8px 6px",
-//           cursor: "pointer",
-//           color: "var(--text)",
-//           fontWeight: 600,
-//         }}
-//       >
-//         <span>{name}</span>
-//         <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-//           {open ? <ChevronUp /> : <ChevronDown />}
-//         </span>
-//       </button>
-
-//       <div
-//         ref={contentRef}
-//         style={{
-//           maxHeight: maxH,
-//           overflow: "hidden",
-//           transition: `max-height ${transition}ms ease, opacity ${transition}ms ease`,
-//           opacity: open ? 1 : 0,
-//         }}
-//       >
-//         <div style={{ paddingLeft: 8 }}>{children}</div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// /* -------------------------
-//    Data (same as you had)
-//    ------------------------- */
-
-// const locations = {
-//   Banks: [
-//     { name: "Japan Post Bank (JP Bank) Naha Branch", address: "〒900-8799 沖縄県那覇市旭町116−37" },
-//     { name: "Okinawa Bank Head Office", address: "〒900-0015 沖縄県那覇市久茂地3丁目10−1" },
-//     { name: "Bank of the Ryukyus", address: "〒900-0015 沖縄県那覇市久茂地1丁目11−1" },
-//   ],
-//   Transport: [
-//     { name: "Naha Bus Terminal", address: "〒900-0021 沖縄県那覇市泉崎1丁目20−1" },
-//     { name: "Asahibashi Monorail Station", address: "〒900-0029 沖縄県那覇市旭町" },
-//     { name: "Miebashi Monorail Station", address: "〒900-0016 沖縄県那覇市前島2丁目" },
-//   ],
-//   Emergency: [
-//     { name: "Naha City Hospital", address: "〒902-0076 沖縄県那覇市与儀1丁目3−21" },
-//     { name: "Okinawa Prefectural Police Headquarters", address: "〒900-0021 沖縄県那覇市泉崎1丁目2−2" },
-//   ],
-//   Embassy: [
-//     { name: "Embassy of Nepal in Tokyo", address: "〒108-0074 東京都港区高輪4丁目17−23" },
-//     { name: "Honorary Consulate of Nepal in Okinawa", address: "〒900-0015 沖縄県那覇市久茂地2丁目3−15" },
-//   ],
-//   Restaurants: [
-//     { name: "Nepali Chulo Restaurant (Tokyo)", address: "〒169-0073 東京都新宿区百人町1丁目19−13" },
-//     { name: "Everest Kitchen Okinawa", address: "〒901-0152 沖縄県那覇市小禄1丁目1−1" },
-//     { name: "Himalayan Curry House Tokyo", address: "〒160-0023 東京都新宿区西新宿7丁目8−11" },
-//   ],
-// };
-
-// /* -------------------------
-//    Multi-language text
-//    ------------------------- */
-
-// const translations = {
-//   en: {
-//     title: "Survival Guide for Students in Japan",
-//     residence: "Residence Registration",
-//     residenceDesc: "Within 14 days after arriving, visit your local city or ward office to register your residence.",
-//     bank: "Opening a Bank Account",
-//     bankDesc: "Bring your residence card and student ID. Major banks include JP Bank and Okinawa Bank.",
-//     transport: "Public Transport",
-//     transportDesc: "Use IC cards like Suica or OKICA for easy travel on buses and trains.",
-//     emergency: "Emergency Contacts",
-//     garbage: "Garbage Separation",
-//   },
-//   jp: {
-//     title: "日本での学生生活ガイド",
-//     residence: "住民登録",
-//     residenceDesc: "到着後14日以内に市役所または区役所で住民登録を行ってください。",
-//     bank: "銀行口座の開設",
-//     bankDesc: "在留カードと学生証を持参してください。主要銀行はゆうちょ銀行や沖縄銀行です。",
-//     transport: "公共交通機関",
-//     transportDesc: "Suica や OKICA などのICカードを使うと便利です。",
-//     emergency: "緊急連絡先",
-//     garbage: "ごみの分別",
-//   },
-//   np: {
-//     title: "जापानमा विद्यार्थीहरूको लागि गाइड",
-//     residence: "बसोबास दर्ता",
-//     residenceDesc: "जापान आइपुगेको 14 दिनभित्र स्थानीय कार्यालयमा दर्ता गर्नुहोस्।",
-//     bank: "बैंक खाता खोल्ने",
-//     bankDesc: "रेजिडेन्स कार्ड र छात्र परिचयपत्र ल्याउनुहोस्।",
-//     transport: "सार्वजनिक यातायात",
-//     transportDesc: "Suica वा OKICA कार्ड प्रयोग गरेर सजिलो यात्रा।",
-//     emergency: "आपतकालीन सम्पर्क",
-//     garbage: "फोहर व्यवस्थापन",
-//   },
-// };
-
-// /* -------------------------
-//    Main component
-//    ------------------------- */
-
-// export default function SurvivalGuide() {
-//   const [expandedCategory, setExpandedCategory] = useState(null);
-//   const [lang, setLang] = useState("en");
-
-//   return (
-//     <div
-//       style={{
-//         padding: 16,
-//         background: "var(--bg, #fdf8f8ff)",
-//         color: "var(--text, #0b0909ff)",
-//         minHeight: "100vh",
-//         fontFamily: "Inter, system-ui, -apple-system, sans-serif",
-//       }}
-//     >
-//       {/* language switch */}
-//       <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginBottom: 12 }}>
-//         {["en", "jp", "np"].map((code) => (
-//           <button
-//             key={code}
-//             onClick={() => setLang(code)}
-//             style={{
-//               borderRadius: 8,
-//               padding: "6px 10px",
-//               border: "1px solid rgba(241, 238, 238, 0.08)",
-//               background: lang === code ? "var(--accent, #0ea5a4)" : "var(--panel, #f3f4f6)",
-//               color: lang === code ? "#fbf8f8ff" : "var(--text, #111)",
-//               cursor: "pointer",
-//             }}
-//           >
-//             {code.toUpperCase()}
-//           </button>
-//         ))}
-//       </div>
-
-//       <h1 style={{ textAlign: "center", fontSize: 28, fontWeight: 700, color: "var(--accent, #0ea5a4)", marginBottom: 20 }}>
-//         {translations[lang].title}
-//       </h1>
-
-//       {/* categories */}
-//       <div style={{ maxWidth: 900, margin: "0 auto" }}>
-//         {Object.keys(locations).map((cat) => {
-//           const isOpen = expandedCategory === cat;
-//           return (
-//             <div key={cat} style={{ marginBottom: 14 }}>
-//               <button
-//                 onClick={() => setExpandedCategory(isOpen ? null : cat)}
-//                 aria-expanded={isOpen}
-//                 style={{
-//                   width: "100%",
-//                   display: "flex",
-//                   justifyContent: "space-between",
-//                   alignItems: "center",
-//                   padding: 12,
-//                   borderRadius: 10,
-//                   background: "var(--panel, #f7f9faff)",
-//                   border: "1px solid rgba(0,0,0,0.06)",
-//                   cursor: "pointer",
-//                   fontWeight: 700,
-//                 }}
-//               >
-//                 <span>{cat}</span>
-//                 <span style={{ display: "flex", alignItems: "center" }}>{isOpen ? <MinusIcon /> : <PlusIcon />}</span>
-//               </button>
-
-//               {/* measured collapsible */}
-//               <div
-//                 style={{
-//                   overflow: "hidden",
-//                   transition: "max-height 320ms ease",
-//                   maxHeight: isOpen ? "1000px" : "0px",
-//                 }}
-//               >
-//                 <div style={{ paddingLeft: 10, borderLeft: "3px solid var(--accent, #0ea5a4)", marginTop: 10, paddingTop: 6 }}>
-//                   {locations[cat].map((loc) => (
-//                     <CollapsibleItem key={loc.name} name={loc.name}>
-//                       <AddressWithMap address={loc.address} />
-//                       {/* You can put small tips per location here */}
-//                     </CollapsibleItem>
-//                   ))}
-//                 </div>
-//               </div>
-//             </div>
-//           );
-//         })}
-//       </div>
-
-//       {/* tips */}
-//       <div style={{ maxWidth: 900, margin: "28px auto 80px", display: "grid", gap: 12 }}>
-//         <div style={{ background: "var(--panel, #fdfafaff)", padding: 14, borderRadius: 10 }}>
-//           <strong>{translations[lang].residence}</strong>
-//           <p style={{ marginTop: 8 }}>{translations[lang].residenceDesc}</p>
-//         </div>
-
-//         <div style={{ background: "var(--panel, #f8fafc)", padding: 14, borderRadius: 10 }}>
-//           <strong>{translations[lang].bank}</strong>
-//           <p style={{ marginTop: 8 }}>{translations[lang].bankDesc}</p>
-//         </div>
-
-//         <div style={{ background: "var(--panel, #f8fafc)", padding: 14, borderRadius: 10 }}>
-//           <strong>{translations[lang].transport}</strong>
-//           <p style={{ marginTop: 8 }}>{translations[lang].transportDesc}</p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-// "use client";
-// import React, { useState, useRef, useEffect } from "react";
-
-// /* -------------------------
-//    Small helper components
-//    ------------------------- */
-// const PlusIcon = ({ size = 18 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
-//     <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-//   </svg>
-// );
-// const MinusIcon = ({ size = 18 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
-//     <path fill="currentColor" d="M5 11h14v2H5z" />
-//   </svg>
-// );
-// const ChevronDown = ({ size = 16 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
-//     <path fill="currentColor" d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
-//   </svg>
-// );
-// const ChevronUp = ({ size = 16 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
-//     <path fill="currentColor" d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
-//   </svg>
-// );
-
-// /* -------------------------
-//    Address iframe component
-//    ------------------------- */
-// const AddressWithMap = ({ address, height = 240 }) => {
-//   const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(
-//     address
-//   )}&output=embed`;
-
-//   return (
-//     <div
-//       style={{
-//         marginTop: 8,
-//         borderRadius: 12,
-//         overflow: "hidden",
-//         boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
-//       }}
-//     >
-//       <p style={{ fontWeight: 600, margin: 8 }}>{address}</p>
-//       <div style={{ background: "var(--panel)", padding: 6 }}>
-//         <iframe
-//           title={`map-${address}`}
-//           src={mapUrl}
-//           width="100%"
-//           height={height}
-//           loading="lazy"
-//           style={{ border: 0, borderRadius: 8, display: "block" }}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// /* -------------------------
-//    CollapsibleItem: single location row with map
-//    ------------------------- */
-// function CollapsibleItem({ name, children, defaultOpen = false }) {
-//   const contentRef = useRef(null);
-//   const [open, setOpen] = useState(defaultOpen);
-//   const [maxH, setMaxH] = useState(open ? "none" : "0px");
-//   const transition = 240;
-
-//   useEffect(() => {
-//     const el = contentRef.current;
-//     if (!el) return;
-//     if (open) {
-//       const h = el.scrollHeight;
-//       setMaxH(`${h}px`);
-//       const t = setTimeout(() => setMaxH("none"), transition + 20);
-//       return () => clearTimeout(t);
-//     } else {
-//       const h = el.scrollHeight;
-//       setMaxH(`${h}px`);
-//       requestAnimationFrame(() => {
-//         requestAnimationFrame(() => setMaxH("0px"));
-//       });
-//     }
-//   }, [open]);
-
-//   return (
-//     <div style={{ marginBottom: 10 }}>
-//       <button
-//         onClick={() => setOpen((s) => !s)}
-//         aria-expanded={open}
-//         style={{
-//           width: "100%",
-//           textAlign: "left",
-//           display: "flex",
-//           justifyContent: "space-between",
-//           alignItems: "center",
-//           background: "transparent", // no hover color
-//           border: "none",
-//           padding: "8px 6px",
-//           cursor: "pointer",
-//           color: "var(--text)",
-//           fontWeight: 600,
-//         }}
-//       >
-//         <span>{name}</span>
-//         <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-//           {open ? <ChevronUp /> : <ChevronDown />}
-//         </span>
-//       </button>
-
-//       <div
-//         ref={contentRef}
-//         style={{
-//           maxHeight: maxH,
-//           overflow: "hidden",
-//           transition: `max-height ${transition}ms ease, opacity ${transition}ms ease`,
-//           opacity: open ? 1 : 0,
-//         }}
-//       >
-//         <div style={{ paddingLeft: 8 }}>{children}</div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// /* -------------------------
-//    Data
-//    ------------------------- */
-// const locations = {
-//   Banks: [
-//     { name: "Japan Post Bank (JP Bank) Naha Branch", address: "〒900-8799 沖縄県那覇市旭町116−37" },
-//     { name: "Okinawa Bank Head Office", address: "〒900-0015 沖縄県那覇市久茂地3丁目10−1" },
-//     { name: "Bank of the Ryukyus", address: "〒900-0015 沖縄県那覇市久茂地1丁目11−1" },
-//   ],
-//   Transport: [
-//     { name: "Naha Bus Terminal", address: "〒900-0021 沖縄県那覇市泉崎1丁目20−1" },
-//     { name: "Asahibashi Monorail Station", address: "〒900-0029 沖縄県那覇市旭町" },
-//     { name: "Miebashi Monorail Station", address: "〒900-0016 沖縄県那覇市前島2丁目" },
-//   ],
-//   Emergency: [
-//     { name: "Naha City Hospital", address: "〒902-0076 沖縄県那覇市与儀1丁目3−21" },
-//     { name: "Okinawa Prefectural Police Headquarters", address: "〒900-0021 沖縄県那覇市泉崎1丁目2−2" },
-//   ],
-//   Embassy: [
-//     { name: "Embassy of Nepal in Tokyo", address: "〒108-0074 東京都港区高輪4丁目17−23" },
-//     { name: "Honorary Consulate of Nepal in Okinawa", address: "〒900-0015 沖縄県那覇市久茂地2丁目3−15" },
-//   ],
-//   Restaurants: [
-//     { name: "Nepali Chulo Restaurant (Tokyo)", address: "〒169-0073 東京都新宿区百人町1丁目19−13" },
-//     { name: "Everest Kitchen Okinawa", address: "〒901-0152 沖縄県那覇市小禄1丁目1−1" },
-//     { name: "Himalayan Curry House Tokyo", address: "〒160-0023 東京都新宿区西新宿7丁目8−11" },
-//   ],
-// };
-
-// /* -------------------------
-//    Translations
-//    ------------------------- */
-// const translations = {
-//   en: {
-//     title: "Survival Guide for Students in Japan",
-//     residence: "Residence Registration",
-//     residenceDesc: "Within 14 days after arriving, visit your local city or ward office to register your residence.",
-//     bank: "Opening a Bank Account",
-//     bankDesc: "Bring your residence card and student ID. Major banks include JP Bank and Okinawa Bank.",
-//     transport: "Public Transport",
-//     transportDesc: "Use IC cards like Suica or OKICA for easy travel on buses and trains.",
-//   },
-//   jp: {
-//     title: "日本での学生生活ガイド",
-//     residence: "住民登録",
-//     residenceDesc: "到着後14日以内に市役所または区役所で住民登録を行ってください。",
-//     bank: "銀行口座の開設",
-//     bankDesc: "在留カードと学生証を持参してください。主要銀行はゆうちょ銀行や沖縄銀行です。",
-//     transport: "公共交通機関",
-//     transportDesc: "Suica や OKICA などのICカードを使うと便利です。",
-//   },
-//   np: {
-//     title: "जापानमा विद्यार्थीहरूको लागि गाइड",
-//     residence: "बसोबास दर्ता",
-//     residenceDesc: "जापान आइपुगेको 14 दिनभित्र स्थानीय कार्यालयमा दर्ता गर्नुहोस्।",
-//     bank: "बैंक खाता खोल्ने",
-//     bankDesc: "रेजिडेन्स कार्ड र छात्र परिचयपत्र ल्याउनुहोस्।",
-//     transport: "सार्वजनिक यातायात",
-//     transportDesc: "Suica वा OKICA कार्ड प्रयोग गरेर सजिलो यात्रा।",
-//   },
-// };
-
-// /* -------------------------
-//    Main component
-//    ------------------------- */
-// export default function SurvivalGuide() {
-//   const [expandedCategory, setExpandedCategory] = useState(null);
-//   const [lang, setLang] = useState("en");
-
-//   return (
-//     <div
-//       style={{
-//         padding: 16,
-//         background: "var(--bg, #fdf8f8ff)",
-//         color: "var(--text, #0b0909ff)",
-//         minHeight: "100vh",
-//         fontFamily: "Inter, system-ui, -apple-system, sans-serif",
-//       }}
-//     >
-//       {/* language switch */}
-//       {/* <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginBottom: 12 }}>
-//         {["en", "jp", "np"].map((code) => (
-//           <button
-//             key={code}
-//             onClick={() => setLang(code)}
-//             style={{
-//               borderRadius: 8,
-//               padding: "6px 10px",
-//               border: "1px solid rgba(241, 238, 238, 0.08)",
-//               background: lang === code ? "var(--accent, #0ea5a4)" : "var(--panel, #f3f4f6)",
-//               color: lang === code ? "#fff" : "var(--text, #111)",
-//               cursor: "pointer",
-//             }}
-//           >
-//             {code.toUpperCase()}
-//           </button>
-//         ))}
-//       </div> */}
-
-//       <h1
-//         style={{
-//           textAlign: "center",
-//           fontSize: 28,
-//           fontWeight: 700,
-//           color: "var(--accent, #0ea5a4)",
-//           marginBottom: 20,
-//         }}
-//       >
-//         {translations[lang].title}
-//       </h1>
-
-//       {/* categories */}
-//       <div style={{ maxWidth: 900, margin: "0 auto" }}>
-//         {Object.keys(locations).map((cat) => {
-//           const isOpen = expandedCategory === cat;
-//           return (
-//             <div key={cat} style={{ marginBottom: 14 }}>
-//               <button
-//                 onClick={() => setExpandedCategory(isOpen ? null : cat)}
-//                 aria-expanded={isOpen}
-//                 style={{
-//                   width: "100%",
-//                   display: "flex",
-//                   justifyContent: "space-between",
-//                   alignItems: "center",
-//                   padding: 12,
-//                   borderRadius: 10,
-//                   background: "var(--panel, #f7f9faff)",
-//                   border: "1px solid rgba(0,0,0,0.06)",
-//                   cursor: "pointer",
-//                   fontWeight: 700,
-//                   color: "var(--text, #111)",
-//                 }}
-//               >
-//                 <span>{cat}</span>
-//                 <span style={{ display: "flex", alignItems: "center" }}>
-//                   {isOpen ? <MinusIcon /> : <PlusIcon />}
-//                 </span>
-//               </button>
-
-//               <div
-//                 style={{
-//                   overflow: "hidden",
-//                   transition: "max-height 320ms ease",
-//                   maxHeight: isOpen ? "1000px" : "0px",
-//                 }}
-//               >
-//                 <div
-//                   style={{
-//                     paddingLeft: 10,
-//                     borderLeft: "3px solid var(--accent, #0ea5a4)",
-//                     marginTop: 10,
-//                     paddingTop: 6,
-//                   }}
-//                 >
-//                   {locations[cat].map((loc) => (
-//                     <CollapsibleItem key={loc.name} name={loc.name}>
-//                       <AddressWithMap address={loc.address} />
-//                     </CollapsibleItem>
-//                   ))}
-//                 </div>
-//               </div>
-//             </div>
-//           );
-//         })}
-//       </div>
-
-//       {/* tips */}
-//       <div style={{ maxWidth: 900, margin: "28px auto 80px", display: "grid", gap: 12 }}>
-//         <div style={{ background: "var(--panel, #fdfafaff)", padding: 14, borderRadius: 10 }}>
-//           <strong>{translations[lang].residence}</strong>
-//           <p style={{ marginTop: 8 }}>{translations[lang].residenceDesc}</p>
-//         </div>
-
-//         <div style={{ background: "var(--panel, #fdfafaff)", padding: 14, borderRadius: 10 }}>
-//           <strong>{translations[lang].bank}</strong>
-//           <p style={{ marginTop: 8 }}>{translations[lang].bankDesc}</p>
-//         </div>
-
-//         <div style={{ background: "var(--panel, #fdfafaff)", padding: 14, borderRadius: 10 }}>
-//           <strong>{translations[lang].transport}</strong>
-//           <p style={{ marginTop: 8 }}>{translations[lang].transportDesc}</p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-// "use client";
-// import React, { useState } from "react";
-
-// /* -------------------------
-//    Icons
-// ------------------------- */
-// const PlusIcon = ({ size = 18 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24">
-//     <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-//   </svg>
-// );
-// const MinusIcon = ({ size = 18 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24">
-//     <path fill="currentColor" d="M5 11h14v2H5z" />
-//   </svg>
-// );
-
-// /* -------------------------
-//    Collapsible Item (for maps/info)
-// ------------------------- */
-// function CollapsibleItem({ name, children, defaultOpen = false }) {
-//   const [open, setOpen] = useState(defaultOpen);
-//   return (
-//     <div style={{ marginBottom: 12 }}>
-//       <button
-//         onClick={() => setOpen((s) => !s)}
-//         style={{
-//           width: "100%",
-//           textAlign: "left",
-//           display: "flex",
-//           justifyContent: "space-between",
-//           alignItems: "center",
-//           padding: "10px 12px",
-//           borderRadius: 10,
-//           background: "var(--panel, #f7f9faff)",
-//           border: "1px solid rgba(0,0,0,0.06)",
-//           cursor: "pointer",
-//           fontWeight: 700,
-//           color: "var(--text, #111)",
-//         }}
-//       >
-//         <span>{name}</span>
-//         <span>{open ? <MinusIcon /> : <PlusIcon />}</span>
-//       </button>
-
-//       <div
-//         style={{
-//           maxHeight: open ? "1000px" : "0px",
-//           overflow: "hidden",
-//           transition: "max-height 0.32s ease",
-//           marginTop: 6,
-//         }}
-//       >
-//         <div style={{ padding: 10, borderLeft: "3px solid var(--accent, #0ea5a4)" }}>
-//           {children}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// /* -------------------------
-//    Main Component
-// ------------------------- */
-// export default function SurvivalGuideInfo() {
-//   const infoData = [
-//     { title: "Residence Registration", content: "Visit your local city or ward office within 14 days after arriving. Bring your residence card." },
-//     { title: "Opening a Bank Account", content: "Bring your residence card and student ID. Major banks include JP Bank, Okinawa Bank." },
-//     { title: "Public Transport", content: "Use IC cards like Suica or OKICA for buses and trains. Exact change works too." },
-//     { title: "Garbage & Recycling", content: "Burnable: Mon/Thu, Non-burnable: Tue, Recyclables: Wed." },
-//     { title: "Cultural Notes", content: "Remove shoes indoors, queue properly, speak softly in public transport." },
-//     { title: "Emergency Numbers", content: "Police: 110, Ambulance: 119, Fire: 119." },
-//   ];
-
-//   return (
-//     <div
-//       style={{
-//         padding: 16,
-//         background: "var(--bg, #fdf8f8ff)",
-//         color: "var(--text, #0b0909ff)",
-//         minHeight: "100vh",
-//         fontFamily: "Inter, system-ui, -apple-system, sans-serif",
-//         maxWidth: 900,
-//         margin: "0 auto",
-//       }}
-//     >
-//       <h1
-//         style={{
-//           textAlign: "center",
-//           fontSize: 28,
-//           fontWeight: 700,
-//           color: "var(--accent, #0ea5a4)",
-//           marginBottom: 24,
-//         }}
-//       >
-//         Student Survival Guide — Info
-//       </h1>
-
-//       {infoData.map((info, idx) => (
-//         <CollapsibleItem key={idx} name={info.title}>
-//           <p style={{ margin: 0 }}>{info.content}</p>
-//         </CollapsibleItem>
-//       ))}
-//     </div>
-//   );
-// }
-// "use client";
-// import React, { useState } from "react";
-
-// /* -------------------------
-//    Icons Placeholder
-// ------------------------- */
-// const StepIcon = () => (
-//   <span style={{ marginRight: 6 }}>📝</span>
-// );
-
-// const PlusIcon = ({ size = 18 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24">
-//     <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-//   </svg>
-// );
-// const MinusIcon = ({ size = 18 }) => (
-//   <svg width={size} height={size} viewBox="0 0 24 24">
-//     <path fill="currentColor" d="M5 11h14v2H5z" />
-//   </svg>
-// );
-
-// /* -------------------------
-//    Collapsible Item
-// ------------------------- */
-// function CollapsibleItem({ name, children, defaultOpen = false }) {
-//   const [open, setOpen] = useState(defaultOpen);
-//   return (
-//     <div style={{ marginBottom: 12 }}>
-//       <button
-//         onClick={() => setOpen((s) => !s)}
-//         style={{
-//           width: "100%",
-//           textAlign: "left",
-//           display: "flex",
-//           justifyContent: "space-between",
-//           alignItems: "center",
-//           padding: "10px 12px",
-//           borderRadius: 10,
-//           background: "var(--panel, #f7f9faff)",
-//           border: "1px solid rgba(0,0,0,0.06)",
-//           cursor: "pointer",
-//           fontWeight: 700,
-//           color: "var(--text, #111)",
-//         }}
-//       >
-//         <span>{name}</span>
-//         <span>{open ? <MinusIcon /> : <PlusIcon />}</span>
-//       </button>
-
-//       <div
-//         style={{
-//           maxHeight: open ? "1000px" : "0px",
-//           overflow: "hidden",
-//           transition: "max-height 0.32s ease",
-//           marginTop: 6,
-//         }}
-//       >
-//         <div style={{ padding: 10, borderLeft: "3px solid var(--accent, #0ea5a4)" }}>
-//           {children}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// /* -------------------------
-//    Step Data with Japanese & Romaji
-// ------------------------- */
-// const survivalInfo = [
-//   {
-//     category: "Residence Registration",
-//     steps: [
-//       { 
-//         text: "Visit your local city or ward office within 14 days of arrival.", 
-//         jp: "到着後14日以内に市役所または区役所に行ってください。",
-//         romaji: "Touchakugo 14-nichi inai ni shiyakusho mata wa kuyakusho ni itte kudasai."
-//       },
-//       { 
-//         text: "Bring your Residence Card and Passport.",
-//         jp: "在留カードとパスポートを持参してください。",
-//         romaji: "Zairyuu kaado to pasupooto o mozan shite kudasai."
-//       },
-//       { 
-//         text: "Fill in the residence registration form.",
-//         jp: "住民登録用紙に記入してください。",
-//         romaji: "Jumin touroku youshi ni kinyuu shite kudasai."
-//       }
-//     ]
-//   },
-//   {
-//     category: "Opening a Bank Account",
-//     steps: [
-//       { 
-//         text: "Bring Residence Card, Passport, and Student ID.",
-//         jp: "在留カード、パスポート、学生証を持参してください。",
-//         romaji: "Zairyuu kaado, pasupooto, gakuseishou o mozan shite kudasai."
-//       },
-//       { 
-//         text: "Ask for a student bank account if available.",
-//         jp: "学生用の銀行口座がありますか？と尋ねてください。",
-//         romaji: "Gakusei you no ginkou kouza ga arimasu ka? to tazunete kudasai."
-//       },
-//       { 
-//         text: "Deposit some money to activate the account.",
-//         jp: "口座を有効にするために入金してください。",
-//         romaji: "Kouza o yuukou ni suru tame ni nyuukin shite kudasai."
-//       }
-//     ]
-//   },
-//   {
-//     category: "Public Transport",
-//     steps: [
-//       { 
-//         text: "Get an IC card like Suica or Pasmo for trains and buses.",
-//         jp: "電車やバスのためにSuicaやPasmoなどのICカードを入手してください。",
-//         romaji: "Densha ya basu no tame ni Suica ya Pasmo nado no IC kaado o nyuushu shite kudasai."
-//       },
-//       { 
-//         text: "Check the bus/train schedule before travelling.",
-//         jp: "乗車前にバスや電車の時刻表を確認してください。",
-//         romaji: "Jousha mae ni basu ya densha no jikokuhyou o kakunin shite kudasai."
-//       }
-//     ]
-//   },
-//   {
-//     category: "Shopping",
-//     steps: [
-//       { 
-//         text: "Carry cash; small stores may not accept cards.",
-//         jp: "現金を持ってください。小さなお店ではカードが使えない場合があります。",
-//         romaji: "Genkin o motte kudasai. Chiisana omise de wa kaado ga tsukaenai baai ga arimasu."
-//       },
-//       { 
-//         text: "Ask for a tax-free receipt if you are a foreign student.",
-//         jp: "外国人学生なら免税レシートをお願いします。",
-//         romaji: "Gaikokujin gakusei nara menzei reishiito o onegaishimasu."
-//       }
-//     ]
-//   },
-//   {
-//     category: "Garbage & Recycling",
-//     steps: [
-//       { 
-//         text: "Burnable: Monday & Thursday, Non-burnable: Tuesday, Recyclables: Wednesday.",
-//         jp: "燃えるゴミ: 月・木、燃えないゴミ: 火、資源ゴミ: 水",
-//         romaji: "Moeru gomi: Getsu/Moku, Moenai gomi: Ka, Shigen gomi: Sui"
-//       },
-//       { 
-//         text: "Separate according to local rules and clean recyclables.",
-//         jp: "地域のルールに従い、資源ゴミはきれいにしてください。",
-//         romaji: "Chiiki no ruuru ni shitagai, shigen gomi wa kirei ni shite kudasai."
-//       }
-//     ]
-//   },
-//   {
-//     category: "Cultural Notes",
-//     steps: [
-//       { text: "Remove shoes when entering a home or traditional restaurant.", jp: "家や伝統的なレストランに入るときは靴を脱いでください。", romaji: "Ie ya dentouteki na resutoran ni hairu toki wa kutsu o nuide kudasai." },
-//       { text: "Stand in line and wait your turn.", jp: "順番を守って並んでください。", romaji: "Junban o mamotte narande kudasai." },
-//       { text: "Speak softly in public transport.", jp: "公共交通機関では静かに話してください。", romaji: "Koukyou koutsuukikan de wa shizuka ni hanashite kudasai." }
-//     ]
-//   },
-//   {
-//     category: "Emergency Numbers & Hospitals",
-//     steps: [
-//       { text: "Police: 110, Ambulance/Fire: 119", jp: "警察: 110、救急/消防: 119", romaji: "Keisatsu: 110, Kyuukyuu/Shoubou: 119" },
-//       { text: "Carry your Residence Card in case of emergency.", jp: "緊急時には在留カードを携帯してください。", romaji: "Kinkyuuji ni wa zairyuu kaado o keitai shite kudasai." }
-//     ]
-//   },
-//   {
-//     category: "Embassy & Legal Support",
-//     steps: [
-//       { text: "Keep the contact of Nepal Embassy handy.", jp: "ネパール大使館の連絡先を手元に置いてください。", romaji: "Nepaaru taishikan no renrakusaki o temoto ni oite kudasai." },
-//       { text: "For legal issues, contact your university or local support center.", jp: "法的な問題の場合は大学または地域サポートセンターに連絡してください。", romaji: "Houteki na mondai no baai wa daigaku mata wa chiiki sapooto sentaa ni renraku shite kudasai." }
-//     ]
-//   }
-// ];
-
-// /* -------------------------
-//    Main Component
-// ------------------------- */
-// export default function SurvivalGuide() {
-//   return (
-//     <div
-//       style={{
-//         padding: 16,
-//         background: "var(--bg, #fdf8f8ff)",
-//         color: "var(--text, #0b0909ff)",
-//         minHeight: "100vh",
-//         fontFamily: "Inter, system-ui, -apple-system, sans-serif",
-//         maxWidth: 900,
-//         margin: "0 auto",
-//       }}
-//     >
-//       <h1
-//         style={{
-//           textAlign: "center",
-//           fontSize: 28,
-//           fontWeight: 700,
-//           color: "var(--accent, #0ea5a4)",
-//           marginBottom: 24,
-//         }}
-//       >
-//         🗾 Student Survival Guide
-//       </h1>
-
-//       {survivalInfo.map((category, idx) => (
-//         <CollapsibleItem key={idx} name={category.category}>
-//           {category.steps.map((step, sidx) => (
-//             <div key={sidx} style={{ marginBottom: 10 }}>
-//               <p style={{ margin: 0 }}><StepIcon />{step.text}</p>
-//               {step.jp && <p style={{ margin: "2px 0 0 22px", fontSize: 14, color: "#555" }}>日本語: {step.jp}</p>}
-//               {step.romaji && <p style={{ margin: "0 0 4px 22px", fontSize: 13, fontStyle: "italic", color: "#777" }}>Romaji: {step.romaji}</p>}
-//             </div>
-//           ))}
-//         </CollapsibleItem>
-//       ))}
-//     </div>
-//   );
-// }
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState, useEffect, useCallback } from "react";
 
-/* -------------------------
-   Icons
-------------------------- */
-const PlusIcon = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24">
+/* ===========================
+   Small utility components
+   =========================== */
+const IconPlus = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
     <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
   </svg>
 );
-const MinusIcon = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24">
+const IconMinus = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
     <path fill="currentColor" d="M5 11h14v2H5z" />
   </svg>
 );
+const IconClose = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
+    <path
+      fill="currentColor"
+      d="M18.3 5.71L12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.71 2.88 18.29 9.18 12 2.88 5.71 4.29 4.29 10.59 10.6 16.88 4.29z"
+    />
+  </svg>
+);
 
-/* -------------------------
-   Collapsible Item
-------------------------- */
-function CollapsibleItem({ name, children, defaultOpen = false }) {
-  const [open, setOpen] = useState(defaultOpen);
+/* ===========================
+   Styles & helpers
+   =========================== */
+const containerStyle: React.CSSProperties = {
+  padding: 16,
+  background: "var(--bg, #f8f5f5ff)",
+  color: "var(--text, #0b0909ff)",
+  minHeight: "100vh",
+  fontFamily: "Inter, system-ui, -apple-system, sans-serif",
+  maxWidth: 920,
+  margin: "0 auto",
+};
+
+const cardStyle = (accent = "#0ea5a4"): React.CSSProperties => ({
+  borderLeft: `3px solid ${accent}`,
+  padding: 10,
+  borderRadius: 8,
+  background: "var(--panel, #faf8f8ff)",
+});
+
+/* ===========================
+   Map Embed
+   =========================== */
+const MapEmbed = ({ address }: { address: string }) => {
+  const url = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
   return (
-    <div style={{ marginBottom: 12 }}>
+    <div style={{ marginTop: 10, borderRadius: 10, overflow: "hidden" }}>
+      <iframe
+        title={address}
+        src={url}
+        width="100%"
+        height={200}
+        style={{ border: 0, borderRadius: 8 }}
+        loading="lazy"
+      />
+    </div>
+  );
+};
+
+/* ===========================
+   Types & Data
+   =========================== */
+type Flashcard = { front: string; back: string; image?: string };
+type Phrase = { jp: string; romaji: string; en?: string };
+
+type Step = {
+  title: string;
+  jp: string;
+  romaji: string;
+  content: string;
+  address?: string;
+  keywords?: string[];
+  important?: string[];
+  tips?: string[];
+  phrases?: Phrase[];
+  flashcards?: Flashcard[];
+};
+
+const stepsData: Step[] = [
+  {
+    title: " 🏦Visit Bank ",
+    jp: "銀行口座開設",
+    romaji: "Ginkō kōza kaisetsu",
+    content:
+      "Bring Residence Card, Passport, Student ID. Ask: '口座を開きたいです' / 'Kōza o hirakitai desu'.",
+    address: "〒900-8799 沖縄県那覇市旭町116−37",
+    keywords: ["bank", "account", "JP Bank", "Okinawa Bank"],
+
+    important: [
+      "Residence Card",
+      "Passport",
+      "Japanese Address",
+      "Phone Number",
+      "Student ID (if student)",
+    ],
+    tips : [
+  "1. Banks usually close at 15:00. Avoid visiting during lunch hours (around 12:00–13:00).",
+  "2. Japan Post Bank (JP Bank) accepts many types of foreign IDs.",
+  "3. Always bring a document with your Japanese address written clearly.",
+  "4. Opening an account may require a seal (hanko) and passport.",
+  "5. Some banks only accept online reservations for new accounts.",
+  "6. Ask if an English form is available to make the process smoother.",
+  "7. ATM limits may differ for foreigners; check before withdrawing large sums."
+],
+
+
+    // tips: [
+    //   "Banks close at 15:00. Avoid lunch time.",
+    //   "JP Bank accepts many foreign IDs.",
+    //   "Bring a Japanese-address written on a document.",
+    // ],
+
+    flashcards: [
+     { front: "キャッシュカード", back: "Cash Card (Kyasshu Kādo)", image: "/cashscard.jpg" },
+      { front: "通帳", back: "Bankbook (Tsūchō)", image: "/bank-account-tool.jpg" },
+      { front: "印鑑", back: "Seal (Inkan)", image: "/hanko.jpg" },
+      {front: "振込", back: "Bank transfer (Furikomi)"},
+      { front: "銀行", back: "Bank (Ginkō)",},
+  { front: "預金", back: "Deposit (Yokin)",  }, 
+  { front: "引き出し", back: "Withdrawal (Hikidashi)",  },
+  { front: "口座", back: "Bank account (Kōza)"},
+  { front: "暗証番号", back: "PIN (Anshō Bangō)", },
+  { front: "利息", back: "Interest (Risoku)", },
+  { front: "残高", back: "Balance (Zandaka)", },
+  { front: "口座を開きたいです", back: "I want to open a bank account (Kōza o Hirakitai desu)",  },
+  { front: "外国人ですが、口座を開けますか？", back: "I am a foreigner, can I open a bank account? (Gaikokujin desu ga, kōza o hirakemasu ka?)", },
+  { front: "銀行の営業時間は？", back: "What are the bank's business hours? (Ginkō no eigyō jikan wa?)",},
+  { front: "通帳記入をお願いします", back: "Please update my passbook (Tsūchō ki'nyū o onegaishimasu)" },
+    ],
+
+    phrases: [
+      {
+        jp: "口座を開きたいです",
+        romaji: "Kōza o hirakitai desu",
+        en: "I want to open a bank account",
+      },
+      {
+        jp: "外国人ですが、口座を開けますか？",
+        romaji: "Gaikokujin desu ga, kōza o hirakemasu ka?",
+        en: "I am a foreigner, can I open a bank account?",
+      },
+       {
+        jp: "振込をしたいです",
+        romaji: "Furikomi o shitai desu",
+        en: "I want to make a bank transfer",
+      },
+    ],
+  },
+
+  {
+    title: "🏥Visit Hospitals",
+    jp: "病院の訪問",
+    romaji: "Byōin no hōmon",
+    content:
+      "Bring your Residence Card and insurance card. Ask: '診察を受けたいです' / 'Shinsatsu o uketai desu'.",
+    address: "〒902-0076 沖縄県那覇市与儀1丁目3−21",
+    keywords: ["hospital", "doctor", "medical"],
+
+    important: [
+      "Residence Card",
+      "Health Insurance Card",
+      "Cash or Card",
+      "List of symptoms & medicine",
+    ],
+
+    
+     tips: [
+    "1. Expect 30–90 min waiting time for non-emergency visits.",
+    "2. Bring translator app screenshots for symptoms.",
+    "3. For emergencies call 119.",
+    "4. Always carry your health insurance card (保険証, hokenshō).",
+    "5. Make an appointment if possible to reduce waiting time.",
+    "6. Bring a list of current medications and allergies.",
+    "7. Speak clearly and politely: 'すみません、具合が悪いです' (Excuse me, I'm not feeling well).",
+    "8. Ask which department to visit if unsure: 'どの科に行けばいいですか？'",
+    "9. Carry cash; some clinics may not accept cards.",
+    "10. Bring a small towel or tissue for comfort.",
+    "11. Wear a mask if you have symptoms like cough or fever.",
+    "12. If you cannot speak Japanese, look for hospitals with English-speaking staff.",
+    "13. For minor injuries, bring a bandage or small first-aid kit just in case.",
+    "14. Request a medical certificate if needed: '診断書をください'.",
+    "15. Don't hesitate to ask for clarification if you don't understand instructions."
+  ],
+
+  flashcards :[
+  { front: "病院", back: "Hospital (Byōin)", image: "/images/byouin.jpg" },
+  { front: "診察", back: "Checkup (Shinsatsu)", image: "/images/shinsatsu.jpg" },
+  { front: "保険証", back: "Health Insurance Card (Hokenshō)", image: "/images/img_hoken.jpg" },
+  { front: "医者", back: "Doctor (Isha)", image: "/images/isha.jpg" },
+  { front: "看護師", back: "Nurse (Kangoshi)", image: "/images/kangoshi.jpg" },
+  { front: "薬", back: "Medicine (Kusuri)", image: "/images/kusuri.jpg" },
+  { front: "救急", back: "Emergency (Kyūkyū)", image: "/images/kyuukyu.jpg" },
+  { front: "症状", back: "Symptoms (Shōjō)", image: "/images/shoujou.jpg" },
+  { front: "頭痛", back: "Headache (Zutsū)", image: "/images/zutsu.jpg" },
+  { front: "熱", back: "Fever (Netsu)", image: "/images/netsu.jpg" },
+  { front: "お腹が痛い", back: "Stomachache (Onaka ga Itai)", image: "/images/onaka.jpg" },
+  { front: "怪我", back: "Injury (Kega)", image: "/images/kega.jpg" },
+  { front: "アレルギー", back: "Allergy (Arerugī)", image: "/images/allerugi.jpg" },
+  { front: "薬をください", back: "Please give me medicine (Kusuri o Kudasai)", image: "/images/kusuri_kudasai.jpg" },
+  { front: "どの科に行けばいいですか？", back: "Which department should I go to? (Dono ka ni ikeba ii desu ka?)", image: "/images/department.jpg" },
+  { front: "診察を受けたいです", back: "I want to see a doctor (Shinsatsu o Uketai desu)", image: "/images/shinsatsu_uketai.jpg" },
+  { front: "救急車を呼んでください", back: "Please call an ambulance (Kyūkyūsha o Yonde Kudasai)", image: "/images/ambulance.jpg" },
+  
+],
+
+
+   phrases: [
+  {
+    jp: "具合が悪いです",
+    romaji: "Guai ga warui desu",
+    en: "I am not feeling well",
+  },
+  {
+    jp: "病院に行きたいです",
+    romaji: "Byōin ni ikitai desu",
+    en: "I want to go to the hospital",
+  },
+  {
+    jp: "頭が痛いです",
+    romaji: "Atama ga itai desu",
+    en: "I have a headache",
+  },
+  {
+    jp: "熱があります",
+    romaji: "Netsu ga arimasu",
+    en: "I have a fever",
+  },
+  {
+    jp: "薬をください",
+    romaji: "Kusuri o kudasai",
+    en: "Please give me medicine",
+  },
+  {
+    jp: "アレルギーがあります",
+    romaji: "Arerugī ga arimasu",
+    en: "I have allergies",
+  },
+  {
+    jp: "救急車を呼んでください",
+    romaji: "Kyūkyūsha o yonde kudasai",
+    en: "Please call an ambulance",
+  },
+  {
+    jp: "予約を取りたいです",
+    romaji: "Yoyaku o toritai desu",
+    en: "I want to make an appointment",
+  },
+  
+]
+
+  },
+  {
+  title: "🗑️Garbage & Recycling",
+  jp: "ゴミ・リサイクル",
+  romaji: "Gomi / Risaikuru",
+  content:
+    "In Japan, garbage must be sorted carefully according to type: burnable, non-burnable, recyclables, and oversized items. Each ward or city has its own schedule and rules. Improper sorting may result in trash not being collected. Ask: 'ゴミを出したいです' / 'Gomi o dashitai desu'.",
+
+  address: "Local ward office or collection point",
+
+  keywords: ["garbage", "trash", "recycling", "separation", "collection", "oversized", "burnable", "non-burnable"],
+
+  important: [
+    "Separate burnable and non-burnable trash",
+    "Recyclables (plastic, bottles, cans, paper, cardboard)",
+    "Check collection days for each type",
+    "Use designated colored trash bags",
+    "Rinse recyclables to prevent odors",
+    "Oversized items require special collection",
+    "Hazardous items (batteries, electronics) have separate rules"
+  ],
+
+  tips: [
+    "Burnable trash (燃えるゴミ) is collected 1–2 times per week.",
+    "Non-burnable trash (燃えないゴミ) is collected less frequently; check local schedule.",
+    "Recyclables: separate paper, plastic, glass, metal, and PET bottles.",
+    "Use only the designated trash bags for your ward or city.",
+    "Rinse bottles and cans to prevent odors and insects.",
+    "Put trash out before 8:00 AM on collection day.",
+    "Oversized items require prior booking with the ward office.",
+    "Electronic waste (TVs, computers, batteries) often requires separate collection points or fees.",
+    "Composting is rare in cities; check local rules if interested.",
+    "If unsure, consult your ward's official website or neighborhood guide."
+  ],
+
+  flashcards: [
+    { front: "ゴミ", back: "Trash / Garbage (Gomi)", image: "/images/gomi.jpg" },
+    { front: "燃えるゴミ", back: "Burnable Trash (Moeru Gomi)", image: "/images/moeru.jpg" },
+    { front: "燃えないゴミ", back: "Non-burnable Trash (Moenai Gomi)", image: "/images/moenai.jpg" },
+    { front: "資源ゴミ", back: "Recyclable Trash (Shigen Gomi)", image: "/images/shigen.jpg" },
+    { front: "ペットボトル", back: "Plastic Bottle (Petto Botoru)", image: "/images/petbottle.jpg" },
+    { front: "缶", back: "Can (Kan)", image: "/images/can.jpg" },
+    { front: "ガラス瓶", back: "Glass Bottle (Garasu Bin)", image: "/images/garasubin.jpg" },
+    { front: "紙", back: "Paper (Kami)", image: "/images/kami.jpg" },
+    { front: "段ボール", back: "Cardboard (Danbōru)", image: "/images/danbooru.jpg" },
+    { front: "粗大ゴミ", back: "Oversized Trash (Sodai Gomi)", image: "/images/sodai.jpg" },
+    { front: "危険物", back: "Hazardous Items (Kikenbutsu)", image: "/images/kikenbutsu.jpg" },
+    { front: "ゴミ袋", back: "Trash Bag (Gomibukuro)", image: "/images/gomibukuro.jpg" },
+    { front: "回収日", back: "Collection Day (Kaishūbi)", image: "/images/kaishuubi.jpg" },
+    { front: "リサイクル", back: "Recycling (Risaikuru)", image: "/images/risaikuru.jpg" },
+    { front: "分別", back: "Separation / Sorting (Bunbetsu)", image: "/images/bunbetsu.jpg" },
+    { front: "指定袋", back: "Designated Bag (Shitei Fukuro)", image: "/images/shiteifukuro.jpg" },
+    
+  ],
+
+  phrases: [
+    {
+      jp: "ゴミを出したいです",
+      romaji: "Gomi o dashitai desu",
+      en: "I want to put out the trash"
+    },
+    {
+      jp: "これは燃えますか？",
+      romaji: "Kore wa moemasu ka?",
+      en: "Is this burnable?"
+    },
+    {
+      jp: "リサイクルに出したいです",
+      romaji: "Risaikuru ni dashitai desu",
+      en: "I want to put this in recycling"
+    },
+    {
+      jp: "回収日はいつですか？",
+      romaji: "Kaishūbi wa itsu desu ka?",
+      en: "When is the collection day?"
+    },
+    {
+      jp: "指定の袋はどこで買えますか？",
+      romaji: "Shitei no fukuro wa doko de kaemasu ka?",
+      en: "Where can I buy the designated trash bags?"
+    },
+    {
+      jp: "粗大ゴミを出したいです",
+      romaji: "Sodai gomi o dashitai desu",
+      en: "I want to dispose of oversized trash"
+    },
+    {
+      jp: "危険物はどこに出せますか？",
+      romaji: "Kikenbutsu wa doko ni dasemasu ka?",
+      en: "Where can I dispose of hazardous items?"
+    }
+  ]
+},
+{
+  title: "🍽️Restaurants",
+  jp: "レストラン",
+  romaji: "Resutoran",
+  content:
+    "Dining in Japan includes sushi bars, ramen shops, izakayas, cafés, and family restaurants. Many places have menus with pictures, and some offer English menus. Ask: 'これをください' / 'Kore o kudasai'.",
+
+  address: "Depends on restaurant; check local maps",
+
+  keywords: ["restaurant", "food", "menu", "order", "reservation", "cash", "credit card"],
+
+  important: [
+    "Carry cash; small restaurants may not accept cards.",
+    "Tipping is not customary in Japan.",
+    "Check if smoking is allowed; many places are non-smoking.",
+    "Some restaurants have table service; others are self-service.",
+    "Reservation may be needed for popular restaurants.",
+    "Allergy info may not be in English; clarify ingredients.",
+    "Waiters may not speak English fluently; gestures help."
+  ],
+
+  tips: [
+    "Use polite phrases: 'すみません' (Excuse me) to get attention.",
+    "Look for the menu with pictures to order easily.",
+    "Use gestures or point to the menu if unsure.",
+    "For ramen shops, follow ticket machine procedures if they exist.",
+    "Waiters may bring water automatically; you don’t need to ask.",
+    "If sharing dishes, make sure to ask for extra plates.",
+    "Do not leave a tip; paying the exact bill is normal.",
+    "Check the opening hours; lunch and dinner hours may differ."
+  ],
+
+  flashcards: [
+    { front: "食べ物", back: "Food (Tabemono)", image: "/images/tabemono.jpg" },
+    { front: "飲み物", back: "Drink (Nomimono)", image: "/images/nomimono.jpg" },
+    { front: "メニュー", back: "Menu (Menyū)", image: "/images/menu.jpg" },
+    { front: "注文", back: "Order (Chūmon)", image: "/images/chumon.jpg" },
+    { front: "会計", back: "Bill / Payment (Kaikei)", image: "/images/kaikei.jpg" },
+    { front: "予約", back: "Reservation (Yoyaku)", image: "/images/yoyaku.jpg" },
+    { front: "箸", back: "Chopsticks (Hashi)", image: "/images/hashi.jpg" },
+    { front: "テーブル", back: "Table (Tēburu)", image: "/images/teburu.jpg" },
+    { front: "飲み放題", back: "All-you-can-drink (Nomihōdai)", image: "/images/nomihodai.jpg" },
+    { front: "禁煙", back: "Non-smoking (Kin'en)", image: "/images/kinen.jpg" },
+    { front: "喫煙", back: "Smoking (Kitsuen)", image: "/images/kitsuen.jpg" },
+    { front: "おすすめ", back: "Recommendation (Osusume)", image: "/images/osusume.jpg" },
+    { front: "辛い", back: "Spicy (Karai)", image: "/images/karai.jpg" },
+    { front: "水", back: "Water (Mizu)", image: "/images/mizu.jpg" },
+    { front: "冷たい", back: "Cold (Tsumetai)", image: "/images/tsumetai.jpg" },
+    { front: "温かい", back: "Warm (Atatakai)", image: "/images/atatakai.jpg" },
+    { front: "お会計お願いします", back: "The bill, please (Okaikei onegaishimasu)", image: "/images/okaikei.jpg" }
+
+
+  ],
+
+  phrases: [
+    {
+      jp: "これをください",
+      romaji: "Kore o kudasai",
+      en: "I’ll have this, please"
+    },
+    {
+      jp: "おすすめは何ですか？",
+      romaji: "Osusume wa nan desu ka?",
+      en: "What do you recommend?"
+    },
+    {
+      jp: "お会計お願いします",
+      romaji: "Okaikei onegaishimasu",
+      en: "The bill, please"
+    },
+    {
+      jp: "予約をしたいです",
+      romaji: "Yoyaku o shitai desu",
+      en: "I would like to make a reservation"
+    },
+    {
+      jp: "水をください",
+      romaji: "Mizu o kudasai",
+      en: "Water, please"
+    },
+    {
+      jp: "辛いですか？",
+      romaji: "Karai desu ka?",
+      en: "Is it spicy?"
+    },
+    {
+      jp: "お箸をください",
+      romaji: "Ohashi o kudasai",
+      en: "Please give me chopsticks"
+    }
+  ]
+},
+{
+  title: "🚌Transport",
+  jp: "交通",
+  romaji: "Kōtsū",
+  content:
+    "Transportation in Japan includes trains, subways, buses, taxis, and airports. Many people use IC cards like Suica or Pasmo for easy travel. Ask: 'この駅はどこですか？' / 'Kono eki wa doko desu ka?'.",
+
+  address: "Depends on station or bus stop; check maps",
+
+  keywords: ["train", "bus", "taxi", "station", "subway", "IC card", "ticket"],
+
+  important: [
+    "Keep your ticket or IC card ready when entering/exiting stations.",
+    "Subways and trains are usually punctual; be on time.",
+    "Some buses require exact change; carry small coins.",
+    "Taxis accept cash; some accept IC cards or credit cards.",
+    "Priority seating is available for elderly, pregnant, or disabled.",
+    "Check last train/bus times; late-night transport is limited.",
+    "Follow proper etiquette: no loud talking, no phone calls on trains."
+  ],
+
+  tips: [
+    "Purchase IC cards (Suica, Pasmo) for convenient travel.",
+    "Use Google Maps or HyperDia to check train times.",
+    "Always stand on the correct side of the escalator (left/right depends on region).",
+    "Queue properly at train platforms and bus stops.",
+    "Have your station name written in Japanese for taxi rides.",
+    "Avoid eating on local trains; it’s generally frowned upon.",
+    "For long-distance travel, consider Shinkansen (bullet train) reservations.",
+    "Check if your IC card can be used in stores for small purchases."
+  ],
+
+  flashcards: [
+    { front: "駅", back: "Station (Eki)", image: "/images/eki.jpg" },
+    { front: "電車", back: "Train (Densha)", image: "/images/densha.jpg" },
+    { front: "バス", back: "Bus (Basu)", image: "/images/basu.jpg" },
+    { front: "タクシー", back: "Taxi (Takushī)", image: "/images/taxi.jpg" },
+    { front: "切符", back: "Ticket (Kippu)", image: "/images/kippu.jpg" },
+    { front: "改札口", back: "Ticket Gate (Kaisatsuguchi)", image: "/images/kaisatsu.jpg" },
+    { front: "ICカード", back: "IC Card (IC Kādo)", image: "/images/iccard.jpg" },
+    { front: "出口", back: "Exit (Deguchi)", image: "/images/deguchi.jpg" },
+    { front: "乗り換え", back: "Transfer (Norikae)", image: "/images/norikae.jpg" },
+    { front: "時刻表", back: "Timetable (Jikokuhyō)", image: "/images/jikoku.jpg" }
+  ],
+
+  phrases: [
+    {
+      jp: "この駅はどこですか？",
+      romaji: "Kono eki wa doko desu ka?",
+      en: "Where is this station?"
+    },
+    {
+      jp: "次の電車は何時ですか？",
+      romaji: "Tsugi no densha wa nanji desu ka?",
+      en: "What time is the next train?"
+    },
+    {
+      jp: "切符をください",
+      romaji: "Kippu o kudasai",
+      en: "Please give me a ticket"
+    },
+    {
+      jp: "ここで降ります",
+      romaji: "Koko de orimasu",
+      en: "I will get off here"
+    },
+    {
+      jp: "駅まで行ってください",
+      romaji: "Eki made itte kudasai",
+      en: "Please take me to the station"
+    },
+    {
+      jp: "乗り換えはどこですか？",
+      romaji: "Norikae wa doko desu ka?",
+      en: "Where is the transfer?"
+    },
+    {
+      jp: "タクシーを呼んでください",
+      romaji: "Takushī o yonde kudasai",
+      en: "Please call a taxi"
+    }
+  ]
+},
+{
+  title: "☕Cafés & Coffee Shops",
+  jp: "カフェ",
+  romaji: "Kafe",
+  content:
+    "Cafés in Japan range from small local coffee shops to international chains. Many offer free Wi-Fi and take-out options. Ask: 'コーヒーをください' / 'Kōhī o kudasai'.",
+
+  address: "Depends on café location; check local maps",
+
+  keywords: ["café", "coffee", "tea", "dessert", "take-out", "Wi-Fi"],
+
+  important: [
+    "Cash and credit cards are accepted, but small cafés may prefer cash.",
+    "Some cafés have seating fees (chōshajō / table charge).",
+    "Many cafés offer seasonal drinks and desserts.",
+    "Check opening hours; some cafés close early.",
+    "Free Wi-Fi may require a password or registration.",
+    "Keep your voice low; cafés are often quiet spaces.",
+    "Take-out is common; bring reusable cup if you prefer eco-friendly."
+  ],
+
+  tips: [
+    "Order politely using 'ください' (kudasai).",
+    "Point to menu items if unsure of pronunciation.",
+    "Ask for recommendations: 'おすすめは何ですか？'",
+    "Some cafés have loyalty cards; ask if available.",
+    "Do not stay for long hours if the café is crowded.",
+    "Check if smoking is allowed; most are non-smoking now.",
+    "Use small coins for vending machine cafés."
+  ],
+
+  flashcards: [
+    { front: "コーヒー", back: "Coffee (Kōhī)", image: "/images/coffee.jpg" },
+    { front: "紅茶", back: "Tea (Kōcha)", image: "/images/tea.jpg" },
+    { front: "ケーキ", back: "Cake (Kēki)", image: "/images/cake.jpg" },
+    { front: "メニュー", back: "Menu (Menyū)", image: "/images/menu.jpg" },
+    { front: "注文", back: "Order (Chūmon)", image: "/images/chumon.jpg" },
+    { front: "持ち帰り", back: "Take-out (Mochikaeri)", image: "/images/takeout.jpg" },
+    { front: "席", back: "Seat / Table (Seki)", image: "/images/seki.jpg" },
+    { front: "Wi-Fi", back: "Wi-Fi (Wi-Fi)", image: "/images/wifi.jpg" },
+    { front: "砂糖", back: "Sugar (Satō)", image: "/images/sugar.jpg" },
+    { front: "ミルク", back: "Milk (Miruku)", image: "/images/milk.jpg" }
+  ],
+
+  phrases: [
+    {
+      jp: "コーヒーをください",
+      romaji: "Kōhī o kudasai",
+      en: "Coffee, please"
+    },
+    {
+      jp: "紅茶をください",
+      romaji: "Kōcha o kudasai",
+      en: "Tea, please"
+    },
+    {
+      jp: "テイクアウトできますか？",
+      romaji: "Teikuauto dekimasu ka?",
+      en: "Can I take this to go?"
+    },
+    {
+      jp: "おすすめは何ですか？",
+      romaji: "Osusume wa nan desu ka?",
+      en: "What do you recommend?"
+    },
+    {
+      jp: "砂糖を入れてください",
+      romaji: "Satō o irete kudasai",
+      en: "Please add sugar"
+    },
+    {
+      jp: "ミルクを入れてください",
+      romaji: "Miruku o irete kudasai",
+      en: "Please add milk"
+    },
+    {
+      jp: "席は空いていますか？",
+      romaji: "Seki wa aiteimasu ka?",
+      en: "Is there an available seat?"
+    }
+  ]
+},
+{
+  title: "📮Post Office",
+  jp: "郵便局",
+  romaji: "Yūbinkyoku",
+  content: "Send mail, parcels, or handle banking (Japan Post Bank). Follow postal etiquette and wait your turn.",
+  tips: [
+    "Bring correct postage and address written clearly.",
+    "Queue politely and wait your turn.",
+    "Use the appropriate counter: mail, parcels, or banking.",
+    "Bring ID if you are sending registered mail or using postal banking.",
+    "Avoid phone calls and speak quietly inside the post office."
+  ],
+  flashcards: [
+    { front: "郵便局", back: "Post Office (Yūbinkyoku)", image: "/images/postoffice.jpg" },
+    { front: "手紙", back: "Letter (Tegami)", image: "/letter.png" },
+    { front: "小包", back: "Parcel (Kozutsumi)", image: "/images/parcel.jpg" },
+    { front: "切手", back: "Stamp (Kitte)", image: "/kitte.jpg" },
+    { front: "貯金", back: "Savings / Bank (Chokin)", image: "/images/postbank.jpg" }
+  ],
+  phrases: [
+    { jp: "この手紙を送りたいです", romaji: "Kono tegami o okuritai desu", en: "I want to send this letter" },
+    { jp: "小包を送りたいです", romaji: "Kozutsumi o okuritai desu", en: "I want to send a parcel" },
+    { jp: "配達状況を確認したいです", romaji: "Haitatsu jōkyō o kakunin shitai desu", en: "I want to check the delivery status" },
+    { jp: "登録郵便にしたいです", romaji: "Tōroku yūbin ni shitai desu", en: "I want to send registered mail" },
+  ]
+},
+{
+  title: "🏢Ward Office / City Hall",
+  jp: "区役所",
+  romaji: "Kuyakusho",
+  content: "Handle residence registration, certificates, taxes, and official procedures. Bring ID and documents.",
+  tips: [
+    "Bring your residence card and passport.",
+    "Prepare all required documents for your request (e.g., family registry, certificates).",
+    "Queue politely and wait for your number to be called.",
+    "Some procedures require advance appointments.",
+    "Speak slowly and clearly; translation apps can help."
+  ],
+  flashcards: [
+    { front: "区役所", back: "Ward Office / City Hall (Kuyakusho)", image: "/images/ward_office.jpg" },
+    { front: "住民票", back: "Residence Certificate (Jūminhyō)", image: "/images/residence_certificate.jpg" },
+    { front: "戸籍", back: "Family Registry (Koseki)", image: "/images/family_registry.jpg" },
+    { front: "印鑑登録", back: "Seal Registration (Inkan Tōroku)", image: "/images/seal_registration.jpg" },
+    { front: "証明書", back: "Certificate (Shōmeisho)", image: "/images/certificate.jpg" }
+  ],
+  phrases: [
+    { jp: "住民票を取りたいです", romaji: "Jūminhyō o toritai desu", en: "I want to get a residence certificate" },
+    { jp: "戸籍謄本を取りたいです", romaji: "Koseki tōhon o toritai desu", en: "I want to get a copy of my family registry" },
+    { jp: "印鑑登録をしたいです", romaji: "Inkan tōroku o shitai desu", en: "I want to register my seal" },
+    { jp: "証明書を発行してほしいです", romaji: "Shōmeisho o hakkō shite hoshii desu", en: "I want a certificate issued" },
+  ]
+},
+{
+  title: "🏘️Renting a House / Apartment",
+  jp: "賃貸物件",
+  romaji: "Chintai Bukken",
+  content: "Visit real estate agencies to find apartments. Understand contracts, deposits, and monthly rent. Ask about utilities and move-in dates.",
+  tips: [
+    "Bring identification (passport and residence card).",
+    "Be prepared for initial costs: deposit (敷金), key money (礼金), agency fees (仲介手数料).",
+    "Ask if utilities (gas, electricity, water) are included.",
+    "Check the apartment for issues before signing the contract.",
+    "Speak politely and clarify all contract terms.",
+    "Bring a Japanese-speaking friend or translation app if needed."
+  ],
+  flashcards: [
+    { front: "賃貸", back: "Rental / Lease (Chintai)", image: "/images/rental.jpg" },
+    { front: "物件", back: "Property (Bukken)", image: "/images/property.jpg" },
+    { front: "敷金", back: "Deposit (Shikikin)", image: "/images/deposit.jpg" },
+    { front: "礼金", back: "Key Money / Gift (Reikin)", image: "/images/keymoney.jpg" },
+    { front: "家賃", back: "Rent (Yachin)", image: "/images/rent.jpg" },
+    { front: "仲介手数料", back: "Agency Fee (Chūkai Tesūryō)", image: "/images/agency_fee.jpg" },
+    { front: "契約書", back: "Contract (Keiyakusho)", image: "/images/contract.jpg" },
+    { front: "引っ越し", back: "Moving (Hikkoshi)", image: "/images/moving.jpg" }
+  ],
+  phrases: [
+    { jp: "この物件を見たいです", romaji: "Kono bukken o mitai desu", en: "I want to see this property" },
+    { jp: "家賃はいくらですか？", romaji: "Yachin wa ikura desu ka?", en: "How much is the rent?" },
+    { jp: "敷金と礼金はいくらですか？", romaji: "Shikikin to reikin wa ikura desu ka?", en: "How much are the deposit and key money?" },
+    { jp: "契約書を確認したいです", romaji: "Keiyakusho o kakunin shitai desu", en: "I want to check the contract" },
+    { jp: "いつ引っ越せますか？", romaji: "Itsu hikkosemasu ka?", en: "When can I move in?" }
+  ]
+},
+
+  {
+    title: "👮Visit Police Station",
+    jp: "警察署訪問",
+    romaji: "Keisatsusho hōmon",
+    content:
+      "Report lost items or safety issues. Ask: '紛失届を出したいです' / 'Funsitsu todoke o dashitai desu'.",
+    address: "〒900-0021 沖縄県那覇市泉崎1丁目2−2",
+    keywords: ["police", "station", "lost", "report"],
+
+    important: ["Residence Card", "Passport", "Photos or evidence", "Phone number"],
+
+    tips: [
+      "Explain slowly or use a translation app.",
+      "Police are strict but want to help; stay calm.",
+      "Bring identification (passport or residence card) when visiting a station.",
+    "For emergencies, dial 110 immediately.",
+    "If reporting a lost item, have details ready (location, description, time).",
+    "Keep copies of any reports given by the police for reference."
+    ],
+
+    flashcards: [
+      { front: "警察", back: "Police (Keisatsu)", image: "/images/keisatsu.jpg" },
+      { front: "紛失", back: "Lost (Funsitsu)", image: "/images/funsitsu.jpg" },
+       { front: "届け出", back: "Report / Registration (Todokede)", image: "/images/todokede.jpg" },
+    { front: "事故", back: "Accident (Jiko)", image: "/images/jiko.jpg" },
+    { front: "窃盗", back: "Theft (Settō)", image: "/images/setto.jpg" },
+    { front: "身分証明書", back: "ID Card (Mibun Shōmeisho)", image: "/images/idcard.jpg" }
+    ],
+
+    phrases: [
+      {
+        jp: "紛失届を出したいです",
+        romaji: "Funsitsu todoke o dashitai desu",
+        en: "I want to file a lost item report",
+      },
+      {
+      jp: "助けてください",
+      romaji: "Tasukete kudasai",
+      en: "Please help me"
+    },
+    {
+      jp: "事故がありました",
+      romaji: "Jiko ga arimashita",
+      en: "There has been an accident"
+    },
+     {
+      jp: "警察を呼んでください",
+      romaji: "Keisatsu o yonde kudasai",
+      en: "Please call the police"
+    },
+    {
+      jp: "身分証明書を見せます",
+      romaji: "Mibun shōmeisho o misemasu",
+      en: "I will show my ID"
+    }
+    ],
+    
+  },
+];
+
+/* ===========================
+   Collapsible Item (outer)
+   =========================== */
+function CollapsibleItem({
+  name,
+  defaultOpen = false,
+  children,
+}: {
+  name: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState<boolean>(defaultOpen);
+  return (
+    <div style={{ marginBottom: 14 }}>
       <button
         onClick={() => setOpen((s) => !s)}
         style={{
@@ -1589,7 +771,7 @@ function CollapsibleItem({ name, children, defaultOpen = false }) {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "10px 12px",
+          padding: "10px 14px",
           borderRadius: 10,
           background: "var(--panel, #f7f9faff)",
           border: "1px solid rgba(0,0,0,0.06)",
@@ -1597,242 +779,407 @@ function CollapsibleItem({ name, children, defaultOpen = false }) {
           fontWeight: 700,
           color: "var(--text, #111)",
         }}
+        aria-expanded={open}
+        aria-controls={`panel-${name}`}
       >
         <span>{name}</span>
-        <span>{open ? <MinusIcon /> : <PlusIcon />}</span>
+        <span>{open ? <IconMinus /> : <IconPlus />}</span>
+      </button>
+
+      <div
+        id={`panel-${name}`}
+        style={{
+          maxHeight: open ? 3000 : 0,
+          overflow: "hidden",
+          transition: "max-height 0.32s ease",
+          marginTop: 8,
+        }}
+      >
+        <div style={cardStyle()}>{children}</div>
+      </div>
+    </div>
+  );
+}
+
+/* ===========================
+   Inner small accordion (used inside tabs)
+   =========================== */
+function InnerAccordion({
+  title,
+  children,
+  defaultOpen = false,
+}: {
+  title: string;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div style={{ marginBottom: 8 }}>
+      <button
+        onClick={() => setOpen((s) => !s)}
+        style={{
+          width: "100%",
+          textAlign: "left",
+          padding: "8px 10px",
+          borderRadius: 8,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          background: "transparent",
+          border: "1px solid rgba(0,0,0,0.06)",
+          cursor: "pointer",
+          fontWeight: 600,
+        }}
+        aria-expanded={open}
+      >
+        <span>{title}</span>
+        <span style={{ opacity: 0.9 }}>{open ? <IconMinus /> : <IconPlus />}</span>
       </button>
 
       <div
         style={{
-          maxHeight: open ? "1000px" : "0px",
+          maxHeight: open ? 1000 : 0,
           overflow: "hidden",
-          transition: "max-height 0.32s ease",
-          marginTop: 6,
+          transition: "max-height 0.28s ease",
+          marginTop: 8,
         }}
       >
-        <div style={{ padding: 10, borderLeft: "3px solid var(--accent, #0ea5a4)" }}>
-          {children}
+        <div style={{ padding: 8 }}>{children}</div>
+      </div>
+    </div>
+  );
+}
+
+/* ===========================
+   Flip Card Modal (image + 3D flip)
+   =========================== */
+function FlipCardModal({
+  cards,
+  initialIndex = 0,
+  onClose,
+}: {
+  cards: Flashcard[];
+  initialIndex?: number;
+  onClose: () => void;
+}) {
+  const [index, setIndex] = useState<number>(initialIndex);
+  const [flipped, setFlipped] = useState<boolean>(false);
+
+  const prev = useCallback(() => {
+    setFlipped(false);
+    setIndex((i) => (i - 1 + cards.length) % cards.length);
+  }, [cards.length]);
+
+  const next = useCallback(() => {
+    setFlipped(false);
+    setIndex((i) => (i + 1) % cards.length);
+  }, [cards.length]);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        setFlipped((s) => !s);
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, prev, next]);
+
+  if (!cards || cards.length === 0) return null;
+  const cur = cards[index];
+
+  /* Inline styles for flip card */
+  const modalBackdrop: React.CSSProperties = {
+    position: "fixed",
+    inset: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 9999,
+    background: "rgba(0,0,0,0.45)",
+    padding: 20,
+  };
+
+  const modalBox: React.CSSProperties = {
+    width: "min(840px, 96%)",
+    maxWidth: 840,
+    borderRadius: 12,
+    padding: 18,
+    background: "var(--panel, #fff)",
+    boxShadow: "0 12px 40px rgba(2,6,23,0.25)",
+  };
+
+  const flipContainer: React.CSSProperties = {
+    perspective: 1200,
+    width: "100%",
+    minHeight: 320,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+  const cardWrapper: React.CSSProperties = {
+    width: 360,
+    height: 300,
+    position: "relative",
+  };
+
+  const flipperCommon: React.CSSProperties = {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    borderRadius: 12,
+    backfaceVisibility: "hidden" as const,
+    WebkitBackfaceVisibility: "hidden" as const,
+    boxShadow: "0 6px 18px rgba(2,6,23,0.12)",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+  };
+
+  const frontStyle: React.CSSProperties = {
+    ...flipperCommon,
+    transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+    transition: "transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)",
+    background: "linear-gradient(180deg,#ffffff,#fbfbfb)",
+  };
+
+  const backStyle: React.CSSProperties = {
+    ...flipperCommon,
+    transform: flipped ? "rotateY(0deg)" : "rotateY(-180deg)",
+    transition: "transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    background: "linear-gradient(180deg,#fff,#f7f7f7)",
+    padding: 18,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+  };
+
+  const imageStyle: React.CSSProperties = {
+    width: "100%",
+    height: 160,
+    objectFit: "cover" as const,
+  };
+
+  return (
+    <div style={modalBackdrop} onClick={onClose}>
+      <div style={modalBox} onClick={(e) => e.stopPropagation()}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <h3 style={{ margin: 0 }}>{`Flashcards (${index + 1}/${cards.length})`}</h3>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <button
+              onClick={onClose}
+              aria-label="Close"
+              style={{ border: "none", background: "transparent", cursor: "pointer", padding: 6 }}
+            >
+              <IconClose />
+            </button>
+          </div>
+        </div>
+
+        <div style={{ marginTop: 14 }}>
+          <div style={flipContainer}>
+            <div style={cardWrapper}>
+              {/* front */}
+              <div
+                style={{
+                  ...frontStyle,
+                  zIndex: flipped ? 1 : 2,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+                onClick={() => setFlipped((s) => !s)}
+                role="button"
+                tabIndex={0}
+                aria-pressed={flipped}
+              >
+                {/* image (optional) */}
+                {cur.image ? (
+                  // use img tag pointing to /public
+                  <img src={cur.image} alt={cur.front} style={imageStyle} />
+                ) : (
+                  <div style={{ height: 160, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.04)" }}>
+                    <div style={{ color: "rgba(0,0,0,0.45)" }}>{cur.front}</div>
+                  </div>
+                )}
+
+                <div style={{ padding: 12, flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ fontSize: 26, fontWeight: 800 }}>{cur.front}</div>
+                </div>
+              </div>
+
+              {/* back */}
+              <div
+                style={{
+                  ...backStyle,
+                  zIndex: flipped ? 2 : 1,
+                }}
+                onClick={() => setFlipped((s) => !s)}
+                role="button"
+                tabIndex={0}
+              >
+                {cur.image && (
+                  <div style={{ width: "100%", height: 160, overflow: "hidden" }}>
+                    <img src={cur.image} alt={cur.front} style={{ ...imageStyle, filter: "brightness(0.95)" }} />
+                  </div>
+                )}
+
+                <div style={{ padding: 12 }}>
+                  <div style={{ fontSize: 20, fontWeight: 800 }}>{cur.back}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* controls */}
+          <div style={{ marginTop: 14, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button
+                onClick={prev}
+                style={{
+                  padding: "8px 12px",
+                  borderRadius: 8,
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  background: "transparent",
+                  cursor: "pointer",
+                }}
+              >
+                ← Prev
+              </button>
+
+              <button
+                onClick={() => setFlipped((s) => !s)}
+                style={{
+                  padding: "8px 12px",
+                  borderRadius: 8,
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  background: "transparent",
+                  cursor: "pointer",
+                }}
+              >
+                Flip
+              </button>
+
+              <button
+                onClick={next}
+                style={{
+                  padding: "8px 12px",
+                  borderRadius: 8,
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  background: "transparent",
+                  cursor: "pointer",
+                }}
+              >
+                Next →
+              </button>
+            </div>
+
+            <div style={{ color: "rgba(0,0,0,0.6)", fontSize: 13 }}>
+              Tip: ← → to navigate, Space/Enter to flip, Esc to close
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-/* -------------------------
-   Map Embed
-------------------------- */
-const MapEmbed = ({ address }: { address: string }) => {
-  const url = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+/* ===========================
+   Tabs component
+   =========================== */
+const TABS = ["Basics", "Important", "Tips", "Phrases", "Flashcards", "Map"] as const;
+type TabKey = (typeof TABS)[number];
+
+function Tabs({
+  selected,
+  onSelect,
+}: {
+  selected: TabKey;
+  onSelect: (t: TabKey) => void;
+}) {
   return (
-    <div style={{ marginTop: 6, borderRadius: 10, overflow: "hidden" }}>
-      <iframe
-        title={address}
-        src={url}
-        width="100%"
-        height={200}
-        style={{ border: 0, borderRadius: 10 }}
-        loading="lazy"
-      />
+    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+      {TABS.map((tab) => {
+        const active = tab === selected;
+        return (
+          <button
+            key={tab}
+            onClick={() => onSelect(tab)}
+            style={{
+              padding: "8px 12px",
+              borderRadius: 8,
+              cursor: "pointer",
+              border: active ? "1px solid rgba(0,0,0,0.12)" : "1px solid rgba(0,0,0,0.06)",
+              background: active ? "rgba(14,165,164,0.08)" : "transparent",
+              fontWeight: active ? 700 : 600,
+            }}
+          >
+            {tab}
+          </button>
+        );
+      })}
     </div>
   );
-};
+}
 
-/* -------------------------
-   Extended JSON Data
-------------------------- */
-const stepsData = [
-  {
-    title: "Register Residence",
-    jp: "住民登録",
-    romaji: "Jūmin tōroku",
-    content:
-      "Within 14 days, visit your local city/ward office with Residence Card. Ask: '住民登録をしたいです' / 'Jūmin tōroku o shitai desu'.",
-    address: "Your local city/ward office address",
-    keywords: ["residence", "city office", "registration"],
-  },
-  {
-    title: "Open a Bank Account",
-    jp: "銀行口座開設",
-    romaji: "Ginkō kōza kaisetsu",
-    content:
-      "Bring Residence Card, Passport, Student ID. Ask: '口座を開きたいです' / 'Kōza o hirakitai desu'.",
-    address: "〒900-8799 沖縄県那覇市旭町116−37",
-    keywords: ["bank", "account", "JP Bank", "Okinawa Bank"],
-  },
-  {
-    title: "Public Transport",
-    jp: "公共交通機関",
-    romaji: "Kōkyō kōtsū kikan",
-    content:
-      "Use IC cards like Suica/OKICA. Exact change works for buses. Ask: '次のバス停はどこですか？' / 'Tsugi no basutei wa doko desu ka?'.",
-    keywords: ["bus", "train", "transport", "Suica", "OKICA"],
-  },
-  {
-    title: "Garbage & Recycling",
-    jp: "ごみとリサイクル",
-    romaji: "Gomi to risaikuru",
-    content:
-      "Burnable: Mon/Thu, Non-burnable: Tue, Recyclables: Wed. Ask neighbors if unsure: 'ごみはどのように出しますか？' / 'Gomi wa dono yō ni dashimasu ka?'.",
-    keywords: ["garbage", "trash", "recycle"],
-  },
-  {
-    title: "Emergency Numbers",
-    jp: "緊急番号",
-    romaji: "Kinkyū bangō",
-    content: "Police: 110, Ambulance: 119, Fire: 119.",
-    keywords: ["emergency", "police", "ambulance", "fire"],
-  },
-  {
-    title: "Cultural Notes",
-    jp: "文化的注意事項",
-    romaji: "Bunka-teki chūi jikō",
-    content:
-      "Remove shoes indoors, queue properly, speak softly, use polite greetings.",
-    keywords: ["culture", "manners", "etiquette"],
-  },
-  {
-    title: "Visit Hospitals",
-    jp: "病院の訪問",
-    romaji: "Byōin no hōmon",
-    content:
-      "Bring your Residence Card and insurance card. Ask: '診察を受けたいです' / 'Shinsatsu o uketai desu'.",
-    address: "〒902-0076 沖縄県那覇市与儀1丁目3−21",
-    keywords: ["hospital", "doctor", "medical"],
-  },
-  {
-    title: "Visit Police Station",
-    jp: "警察署訪問",
-    romaji: "Keisatsusho hōmon",
-    content:
-      "Report lost items or emergencies. Ask: '紛失届を出したいです' / 'Funsitsu todoke o dashitai desu'.",
-    address: "〒900-0021 沖縄県那覇市泉崎1丁目2−2",
-    keywords: ["police", "station", "lost", "report"],
-  },
-  {
-    title: "Shopping",
-    jp: "買い物",
-    romaji: "Kaimono",
-    content:
-      "Convenience stores, supermarkets, malls. Ask staff politely: 'これをください' / 'Kore o kudasai'.",
-    address: "〒900-0014 沖縄県那覇市松尾2丁目8−19",
-    keywords: ["shopping", "store", "mall"],
-  },
-  {
-    title: "Visit Embassy",
-    jp: "大使館の訪問",
-    romaji: "Taishikan no hōmon",
-    content:
-      "For visas or documents. Ask: '書類を提出したいです' / 'Shorui o teishutsu shitai desu'.",
-    address: "〒900-0015 沖縄県那覇市久茂地2丁目3−15",
-    keywords: ["embassy", "visa", "Nepal"],
-  },
-  {
-    title: "Buy SIM Card / Internet",
-    jp: "SIMカード購入",
-    romaji: "SIM kādo kōnyū",
-    content:
-      "Bring passport. Ask: 'SIMカードを購入したいです' / 'SIM kādo o kōnyū shitai desu'.",
-    keywords: ["internet", "sim", "phone", "mobile"],
-  },
-  {
-    title: "Opening Hours",
-    jp: "営業時間",
-    romaji: "Eigyō jikan",
-    content:
-      "Check stores and offices opening times. Weekdays are standard; Sundays may close.",
-    keywords: ["hours", "schedule", "time"],
-  },
-  {
-    title: "Language Assistance",
-    jp: "言語サポート",
-    romaji: "Gengo sapōto",
-    content:
-      "Use translation apps or request English-speaking staff. Ask: '英語を話せますか？' / 'Eigo o hanasemasu ka?'.",
-    keywords: ["language", "English", "translation"],
-  },
-  {
-    title: "Cultural Festivals",
-    jp: "文化祭",
-    romaji: "Bunka sai",
-    content:
-      "Participate in local festivals. Ask neighbors or school for schedules.",
-    keywords: ["festival", "event", "culture"],
-  },
-  {
-    title: "Local Etiquette",
-    jp: "地域のマナー",
-    romaji: "Chiiki no manā",
-    content:
-      "Greetings, respect elders, do not litter. Common phrases: 'こんにちは' / 'Konnichiwa'.",
-    keywords: ["manners", "etiquette", "greeting"],
-  },
-  {
-    title: "Bank Withdrawals / ATMs",
-    jp: "銀行引き出し / ATM",
-    romaji: "Ginkō hikidashi / ATM",
-    content:
-      "ATMs available at banks, convenience stores. Ask: '現金を引き出したいです' / 'Genkin o hikidashitai desu'.",
-    keywords: ["ATM", "withdraw", "cash", "bank"],
-  },
-  {
-    title: "Postal Services",
-    jp: "郵便サービス",
-    romaji: "Yūbin sābisu",
-    content:
-      "Post letters, parcels. Ask: '郵便を出したいです' / 'Yūbin o dashitai desu'.",
-    keywords: ["post", "mail", "letter", "parcel"],
-  },
-];
-
-/* -------------------------
+/* ===========================
    Main Component
-------------------------- */
-export default function ExtendedSearchableGuide() {
-  const [search, setSearch] = useState("");
+   =========================== */
+export default function FullFeaturedGuideWithFlip() {
+  const [search, setSearch] = useState<string>("");
+  const [openModalFor, setOpenModalFor] = useState<{ id: string; index?: number } | null>(null);
 
   const results = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return stepsData;
-
     return stepsData.filter((step) => {
       return (
         step.title.toLowerCase().includes(q) ||
         step.jp.toLowerCase().includes(q) ||
         step.romaji.toLowerCase().includes(q) ||
         step.content.toLowerCase().includes(q) ||
-        (step.keywords && step.keywords.some((kw) => kw.toLowerCase().includes(q)))
+        (step.keywords && step.keywords.some((kw) => kw.toLowerCase().includes(q))) ||
+        (step.important && step.important.some((it) => it.toLowerCase().includes(q))) ||
+        (step.tips && step.tips.some((it) => it.toLowerCase().includes(q))) ||
+        (step.phrases &&
+          step.phrases.some(
+            (p) =>
+              p.jp.toLowerCase().includes(q) ||
+              p.romaji.toLowerCase().includes(q) ||
+              (p.en && p.en.toLowerCase().includes(q))
+          )) ||
+        (step.flashcards &&
+          step.flashcards.some((f) => f.front.toLowerCase().includes(q) || f.back.toLowerCase().includes(q)))
       );
     });
   }, [search]);
 
   return (
-    <div
-      style={{
-        padding: 16,
-        background: "var(--bg, #fdf8f8ff)",
-        color: "var(--text, #0b0909ff)",
-        minHeight: "100vh",
-        fontFamily: "Inter, system-ui, -apple-system, sans-serif",
-        maxWidth: 900,
-        margin: "0 auto",
-      }}
-    >
+    <div style={containerStyle}>
       <h1
         style={{
           textAlign: "center",
           fontSize: 28,
           fontWeight: 700,
           color: "var(--accent, #0ea5a4)",
-          marginBottom: 20,
+          marginBottom: 18,
         }}
       >
-         Student Survival Guide 
+        Student Survival Guide  
       </h1>
 
       <input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search by keyword..."
+        placeholder="Search by keyword, JP, romaji, tips, flashcard..."
         style={{
           width: "100%",
           padding: "10px 12px",
@@ -1843,29 +1190,246 @@ export default function ExtendedSearchableGuide() {
         }}
       />
 
-      {results.map((step, idx) => (
-        <CollapsibleItem key={idx} name={step.title}>
-          {/* Placeholder icon */}
-          <div
-            style={{
-              width: 60,
-              height: 60,
-              background: "#eee",
-              borderRadius: 8,
-              marginBottom: 8,
-            }}
-          />
-          <p style={{ margin: 4 }}>
-            <strong>JP:</strong> {step.jp}
-          </p>
-          <p style={{ margin: 4 }}>
-            <strong>Romaji:</strong> {step.romaji}
-          </p>
-          <p style={{ marginTop: 6 }}>{step.content}</p>
+      {results.map((step, idx) => {
+        const id = `${step.title.replace(/\s+/g, "-").toLowerCase()}-${idx}`;
+        return (
+          <CollapsibleItem key={id} name={step.title} defaultOpen={false}>
+            <StepWithTabs
+              step={step}
+              id={id}
+              openFlashcardsModal={(startIndex = 0) => setOpenModalFor({ id, index: startIndex })}
+            />
+          </CollapsibleItem>
+        );
+      })}
 
-          {step.address && <MapEmbed address={step.address} />}
-        </CollapsibleItem>
-      ))}
+      {/* Global modal controller */}
+      {openModalFor &&
+        (() => {
+          const { id, index } = openModalFor;
+          // attempt to find in current results (search) first, then fallback to full data
+          const found = results.find((s, i) => `${s.title.replace(/\s+/g, "-").toLowerCase()}-${i}` === id) ??
+            stepsData.find((s, i) => `${s.title.replace(/\s+/g, "-").toLowerCase()}-${i}` === id);
+          if (!found || !found.flashcards) return null;
+          return (
+            <FlipCardModal
+              cards={found.flashcards}
+              initialIndex={index ?? 0}
+              onClose={() => setOpenModalFor(null)}
+            />
+          );
+        })()}
+    </div>
+  );
+}
+
+/* ===========================
+   StepWithTabs: renders the tabs and their contents for one step
+   =========================== */
+function StepWithTabs({ step, id, openFlashcardsModal }: { step: Step; id: string; openFlashcardsModal: (startIndex?: number) => void; }) {
+  const [tab, setTab] = useState<TabKey>("Basics");
+
+  return (
+    <div>
+      {/* header basics */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center" }}>
+          <div>
+            <p style={{ margin: 0 }}><strong>JP:</strong> {step.jp}</p>
+            <p style={{ margin: 0 }}><strong>Romaji:</strong> {step.romaji}</p>
+          </div>
+
+          <div style={{ textAlign: "right", minWidth: 110 }}>
+            {step.address ? <div style={{ fontSize: 13, color: "rgba(0,0,0,0.7)" }}>{step.address}</div> : null}
+            <div style={{ marginTop: 6 }}>
+              <small style={{ color: "rgba(0,0,0,0.6)" }}>{step.keywords?.slice(0,3).join(", ")}</small>
+            </div>
+          </div>
+        </div>
+
+        {/* tabs */}
+        <Tabs selected={tab} onSelect={(t) => setTab(t)} />
+      </div>
+
+      {/* tab contents */}
+      <div style={{ marginTop: 12 }}>
+        {tab === "Basics" && (
+          <div>
+            <InnerAccordion title="Overview" defaultOpen>
+              <p style={{ marginTop: 0 }}>{step.content}</p>
+            </InnerAccordion>
+
+            <InnerAccordion title="Quick actions">
+              <ul style={{ marginTop: 8 }}>
+                <li>Ask the staff the phrase shown in Phrases tab.</li>
+                <li>Bring the "Important Things" listed in that tab.</li>
+                <li>Open Flashcards to review key words before visiting.</li>
+              </ul>
+            </InnerAccordion>
+
+            {/* small inline flashcard previews */}
+            {step.flashcards && step.flashcards.length > 0 && (
+              <div style={{ marginTop: 10 }}>
+                <h4 style={{ margin: "6px 0" }}>Quick flashcards (preview)</h4>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {step.flashcards.slice(0, 3).map((c, i) => (
+                    <div key={`${id}-card-${i}`} style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 8, borderRadius: 8, minWidth: 120 }}>
+                      {c.image && <img src={c.image} alt={c.front} style={{ width: "100%", height: 70, objectFit: "cover", borderRadius: 6, marginBottom: 8 }} />}
+                      <div style={{ fontWeight: 700 }}>{c.front}</div>
+                      <div style={{ marginTop: 6 }}>{c.back}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ marginTop: 8 }}>
+                  <button
+                    onClick={() => openFlashcardsModal(0)}
+                    style={{
+                      padding: "8px 12px",
+                      borderRadius: 8,
+                      cursor: "pointer",
+                      border: "1px solid rgba(0,0,0,0.08)",
+                      background: "transparent",
+                    }}
+                  >
+                    Open Flashcards ▶
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {tab === "Important" && (
+          <div>
+            {step.important && step.important.length > 0 ? (
+              <div>
+                <InnerAccordion title="Documents to bring" defaultOpen>
+                  <ul>
+                    {step.important.map((it, i) => <li key={`${id}-important-${i}`}>{it}</li>)}
+                  </ul>
+                </InnerAccordion>
+
+                <InnerAccordion title="Why these matter">
+                  <p style={{ marginTop: 0 }}>Some places require official documents or local proof of address. Without them, services may be delayed.</p>
+                </InnerAccordion>
+              </div>
+            ) : (
+              <p>No important items listed for this place.</p>
+            )}
+          </div>
+        )}
+
+        {tab === "Tips" && (
+          <div>
+            {step.tips && step.tips.length > 0 ? (
+              <div>
+                <InnerAccordion title="Timing & queues" defaultOpen>
+                  <ul>
+                    {step.tips.map((t, i) => <li key={`${id}-tip-${i}`}>{t}</li>)}
+                  </ul>
+                </InnerAccordion>
+
+                <InnerAccordion title="Local customs">
+                  <p style={{ marginTop: 0 }}>Follow common local etiquette such as removing shoes (if required) and speaking politely.</p>
+                </InnerAccordion>
+              </div>
+            ) : (
+              <p>No tips listed for this place.</p>
+            )}
+          </div>
+        )}
+
+        {tab === "Phrases" && (
+          <div>
+            {step.phrases && step.phrases.length > 0 ? (
+              <div>
+                <InnerAccordion title="Common phrases" defaultOpen>
+                  {step.phrases.map((p, i) => (
+                    <div key={`${id}-phrase-${i}`} style={{ marginBottom: 8 }}>
+                      <div style={{ fontWeight: 700 }}>{p.jp}</div>
+                      <div style={{ fontSize: 13, color: "rgba(0,0,0,0.7)" }}>{p.romaji}</div>
+                      {p.en && <div style={{ fontSize: 13 }}>{p.en}</div>}
+                    </div>
+                  ))}
+                </InnerAccordion>
+
+                <InnerAccordion title="How to use them">
+                  <p style={{ marginTop: 0 }}>Try speaking slowly, and show the phrase on your phone if pronunciation is difficult.</p>
+                </InnerAccordion>
+              </div>
+            ) : (
+              <p>No phrases available.</p>
+            )}
+          </div>
+        )}
+
+        {tab === "Flashcards" && (
+          <div>
+            {step.flashcards && step.flashcards.length > 0 ? (
+              <div>
+                <InnerAccordion title="Preview (click to flip)" defaultOpen>
+                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                    {step.flashcards.map((c, i) => (
+                      <div
+                        key={`${id}-fc-${i}`}
+                        style={{
+                          border: "1px solid rgba(0,0,0,0.06)",
+                          padding: 10,
+                          borderRadius: 8,
+                          minWidth: 140,
+                          cursor: "pointer",
+                        }}
+                        onClick={() => openFlashcardsModal(i)}
+                        role="button"
+                      >
+                        {c.image && <img src={c.image} alt={c.front} style={{ width: "100%", height: 70, objectFit: "cover", borderRadius: 6, marginBottom: 8 }} />}
+                        <div style={{ fontWeight: 700 }}>{c.front}</div>
+                        <div style={{ marginTop: 6 }}>{c.back}</div>
+                      </div>
+                    ))}
+                  </div>
+                </InnerAccordion>
+
+                <div style={{ marginTop: 8 }}>
+                  <button
+                    onClick={() => openFlashcardsModal(0)}
+                    style={{
+                      padding: "8px 12px",
+                      borderRadius: 8,
+                      cursor: "pointer",
+                      border: "1px solid rgba(0,0,0,0.08)",
+                      background: "transparent",
+                    }}
+                  >
+                    Open Flashcards Modal ▶
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <p>No flashcards for this place.</p>
+            )}
+          </div>
+        )}
+
+        {tab === "Map" && (
+          <div>
+            {step.address ? (
+              <div>
+                <InnerAccordion title="Location (map)" defaultOpen>
+                  <MapEmbed address={step.address} />
+                </InnerAccordion>
+
+                <InnerAccordion title="Tips for visiting">
+                  <p style={{ marginTop: 0 }}>Check opening hours and bring the address printed in Japanese to show to taxi drivers.</p>
+                </InnerAccordion>
+              </div>
+            ) : (
+              <p>No address available for this place.</p>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -412,7 +412,7 @@ const features = [
   { name: "📘 Lessons", path: "/lessons", desc: "Study vocabulary, kanji, sentences." },
   
   { name: "🧭 Tools", path: "/tools", desc: "Weather, currency, maps, converters." },
-  { name: "📰 News", path: "/news", desc: "Latest updates and student info." },
+  // { name: "📰 News", path: "/news", desc: "Latest updates and student info." },
   { name: "🔍 Search", path: "/search", desc: "Find phrases, tips and categories fast." },
 ];
 
@@ -499,7 +499,7 @@ export default function Home() {
       `}</style>
 
       {/* Title */}
-      <h1 className="home-title">🇳🇵 Nepalese Guide to Japan 🇯🇵</h1>
+      <h1 className="home-title">Japan Nepal Guide</h1>
 
       {/* Description */}
       <AnimatedFadeIn delay={300}>

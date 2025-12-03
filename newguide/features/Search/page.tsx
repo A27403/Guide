@@ -671,7 +671,7 @@ export default function SearchPage() {
             onClick={handleSearch}
             disabled={loading}
             style={{
-              backgroundColor: loading ? "#aaa" : "#c47f00",
+              backgroundColor: loading ? "#aaa" : "#c29654ff",
               color: "#fff",
               border: "none",
               borderRadius: "12px",

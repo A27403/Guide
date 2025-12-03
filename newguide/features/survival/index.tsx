@@ -189,23 +189,23 @@ const stepsData: Step[] = [
   ],
 
   flashcards :[
-  { front: "病院", back: "Hospital (Byōin)", image: "/images/byouin.jpg" },
-  { front: "診察", back: "Checkup (Shinsatsu)", image: "/images/shinsatsu.jpg" },
-  { front: "保険証", back: "Health Insurance Card (Hokenshō)", image: "/images/img_hoken.jpg" },
-  { front: "医者", back: "Doctor (Isha)", image: "/images/isha.jpg" },
-  { front: "看護師", back: "Nurse (Kangoshi)", image: "/images/kangoshi.jpg" },
-  { front: "薬", back: "Medicine (Kusuri)", image: "/images/kusuri.jpg" },
-  { front: "救急", back: "Emergency (Kyūkyū)", image: "/images/kyuukyu.jpg" },
-  { front: "症状", back: "Symptoms (Shōjō)", image: "/images/shoujou.jpg" },
-  { front: "頭痛", back: "Headache (Zutsū)", image: "/images/zutsu.jpg" },
-  { front: "熱", back: "Fever (Netsu)", image: "/images/netsu.jpg" },
-  { front: "お腹が痛い", back: "Stomachache (Onaka ga Itai)", image: "/images/onaka.jpg" },
-  { front: "怪我", back: "Injury (Kega)", image: "/images/kega.jpg" },
-  { front: "アレルギー", back: "Allergy (Arerugī)", image: "/images/allerugi.jpg" },
-  { front: "薬をください", back: "Please give me medicine (Kusuri o Kudasai)", image: "/images/kusuri_kudasai.jpg" },
-  { front: "どの科に行けばいいですか？", back: "Which department should I go to? (Dono ka ni ikeba ii desu ka?)", image: "/images/department.jpg" },
-  { front: "診察を受けたいです", back: "I want to see a doctor (Shinsatsu o Uketai desu)", image: "/images/shinsatsu_uketai.jpg" },
-  { front: "救急車を呼んでください", back: "Please call an ambulance (Kyūkyūsha o Yonde Kudasai)", image: "/images/ambulance.jpg" },
+  { front: "病院", back: "Hospital (Byōin)", image: "/byouin.jpg" },
+  { front: "診察", back: "Checkup (Shinsatsu)", image: "/shinsatsu.jpg" },
+  { front: "保険証", back: "Health Insurance Card (Hokenshō)",  },
+  { front: "医者", back: "Doctor (Isha)",  },
+  { front: "看護師", back: "Nurse (Kangoshi)", },
+  { front: "薬", back: "Medicine (Kusuri)", image: "/kusuri.jpg" },
+  { front: "救急", back: "Emergency (Kyūkyū)", image: "/kyuukyu.jpg" },
+  { front: "症状", back: "Symptoms (Shōjō)", },
+  { front: "頭痛", back: "Headache (Zutsū)", image: "/zutsu.jpg" },
+  { front: "熱", back: "Fever (Netsu)", image: "/netsu.jpg" },
+  { front: "お腹が痛い", back: "Stomachache (Onaka ga Itai)", image: "/onaka.jpg" },
+  { front: "怪我", back: "Injury (Kega)",},
+  { front: "アレルギー", back: "Allergy (Arerugī)",  },
+  { front: "薬をください", back: "Please give me medicine (Kusuri o Kudasai)",},
+  { front: "どの科に行けばいいですか？", back: "Which department should I go to? (Dono ka ni ikeba ii desu ka?)", },
+  { front: "診察を受けたいです", back: "I want to see a doctor (Shinsatsu o Uketai desu)",  },
+  { front: "救急車を呼んでください", back: "Please call an ambulance (Kyūkyūsha o Yonde Kudasai)",  },
   
 ],
 
@@ -380,23 +380,23 @@ const stepsData: Step[] = [
   ],
 
   flashcards: [
-    { front: "食べ物", back: "Food (Tabemono)", image: "/images/tabemono.jpg" },
-    { front: "飲み物", back: "Drink (Nomimono)", image: "/images/nomimono.jpg" },
-    { front: "メニュー", back: "Menu (Menyū)", image: "/images/menu.jpg" },
-    { front: "注文", back: "Order (Chūmon)", image: "/images/chumon.jpg" },
-    { front: "会計", back: "Bill / Payment (Kaikei)", image: "/images/kaikei.jpg" },
-    { front: "予約", back: "Reservation (Yoyaku)", image: "/images/yoyaku.jpg" },
-    { front: "箸", back: "Chopsticks (Hashi)", image: "/images/hashi.jpg" },
-    { front: "テーブル", back: "Table (Tēburu)", image: "/images/teburu.jpg" },
-    { front: "飲み放題", back: "All-you-can-drink (Nomihōdai)", image: "/images/nomihodai.jpg" },
-    { front: "禁煙", back: "Non-smoking (Kin'en)", image: "/images/kinen.jpg" },
-    { front: "喫煙", back: "Smoking (Kitsuen)", image: "/images/kitsuen.jpg" },
-    { front: "おすすめ", back: "Recommendation (Osusume)", image: "/images/osusume.jpg" },
-    { front: "辛い", back: "Spicy (Karai)", image: "/images/karai.jpg" },
-    { front: "水", back: "Water (Mizu)", image: "/images/mizu.jpg" },
-    { front: "冷たい", back: "Cold (Tsumetai)", image: "/images/tsumetai.jpg" },
-    { front: "温かい", back: "Warm (Atatakai)", image: "/images/atatakai.jpg" },
-    { front: "お会計お願いします", back: "The bill, please (Okaikei onegaishimasu)", image: "/images/okaikei.jpg" }
+    { front: "食べ物", back: "Food (Tabemono)",},
+    { front: "飲み物", back: "Drink (Nomimono)",  },
+    { front: "メニュー", back: "Menu (Menyū)",},
+    { front: "注文", back: "Order (Chūmon)",  },
+    { front: "会計", back: "Bill / Payment (Kaikei)",  },
+    { front: "予約", back: "Reservation (Yoyaku)",  },
+    { front: "箸", back: "Chopsticks (Hashi)", },
+    { front: "テーブル", back: "Table (Tēburu)",  },
+    { front: "飲み放題", back: "All-you-can-drink (Nomihōdai)", },
+    { front: "禁煙", back: "Non-smoking (Kin'en)", },
+    { front: "喫煙", back: "Smoking (Kitsuen)",   },
+    { front: "おすすめ", back: "Recommendation (Osusume)", },
+    { front: "辛い", back: "Spicy (Karai)",  },
+    { front: "水", back: "Water (Mizu)", },
+    { front: "冷たい", back: "Cold (Tsumetai)",  },
+    { front: "温かい", back: "Warm (Atatakai)", },
+    { front: "お会計お願いします", back: "The bill, please (Okaikei onegaishimasu)", }
 
 
   ],
@@ -472,16 +472,16 @@ const stepsData: Step[] = [
   ],
 
   flashcards: [
-    { front: "駅", back: "Station (Eki)", image: "/images/eki.jpg" },
-    { front: "電車", back: "Train (Densha)", image: "/images/densha.jpg" },
-    { front: "バス", back: "Bus (Basu)", image: "/images/basu.jpg" },
-    { front: "タクシー", back: "Taxi (Takushī)", image: "/images/taxi.jpg" },
-    { front: "切符", back: "Ticket (Kippu)", image: "/images/kippu.jpg" },
-    { front: "改札口", back: "Ticket Gate (Kaisatsuguchi)", image: "/images/kaisatsu.jpg" },
-    { front: "ICカード", back: "IC Card (IC Kādo)", image: "/images/iccard.jpg" },
-    { front: "出口", back: "Exit (Deguchi)", image: "/images/deguchi.jpg" },
-    { front: "乗り換え", back: "Transfer (Norikae)", image: "/images/norikae.jpg" },
-    { front: "時刻表", back: "Timetable (Jikokuhyō)", image: "/images/jikoku.jpg" }
+    { front: "駅", back: "Station (Eki)", image: "/trainstation.jpg" },
+    { front: "電車", back: "Train (Densha)", image: "/train.jpg" },
+    { front: "バス", back: "Bus (Basu)", },
+    { front: "タクシー", back: "Taxi (Takushī)",  },
+    { front: "切符", back: "Ticket (Kippu)",  },
+    { front: "改札口", back: "Ticket Gate (Kaisatsuguchi)", },
+    { front: "ICカード", back: "IC Card (IC Kādo)",  },
+    { front: "出口", back: "Exit (Deguchi)", },
+    { front: "乗り換え", back: "Transfer (Norikae)",},
+    { front: "時刻表", back: "Timetable (Jikokuhyō)",  }
   ],
 
   phrases: [
@@ -554,16 +554,16 @@ const stepsData: Step[] = [
   ],
 
   flashcards: [
-    { front: "コーヒー", back: "Coffee (Kōhī)", image: "/images/coffee.jpg" },
-    { front: "紅茶", back: "Tea (Kōcha)", image: "/images/tea.jpg" },
-    { front: "ケーキ", back: "Cake (Kēki)", image: "/images/cake.jpg" },
-    { front: "メニュー", back: "Menu (Menyū)", image: "/images/menu.jpg" },
-    { front: "注文", back: "Order (Chūmon)", image: "/images/chumon.jpg" },
-    { front: "持ち帰り", back: "Take-out (Mochikaeri)", image: "/images/takeout.jpg" },
+    { front: "コーヒー", back: "Coffee (Kōhī)", image: "/coffee.jpg" },
+    { front: "紅茶", back: "Tea (Kōcha)", image: "/tea.jpg" },
+    { front: "ケーキ", back: "Cake (Kēki)", image: "/cake.jpg" },
+    { front: "メニュー", back: "Menu (Menyū)",  },
+    { front: "注文", back: "Order (Chūmon)",  },
+    { front: "持ち帰り", back: "Take-out (Mochikaeri)", image: "/talkeout.jpg" },
     { front: "席", back: "Seat / Table (Seki)", image: "/images/seki.jpg" },
-    { front: "Wi-Fi", back: "Wi-Fi (Wi-Fi)", image: "/images/wifi.jpg" },
-    { front: "砂糖", back: "Sugar (Satō)", image: "/images/sugar.jpg" },
-    { front: "ミルク", back: "Milk (Miruku)", image: "/images/milk.jpg" }
+    { front: "Wi-Fi", back: "Wi-Fi (Wi-Fi)",  },
+    { front: "砂糖", back: "Sugar (Satō)", image: "/sugar.jpg" },
+    { front: "ミルク", back: "Milk (Miruku)",  }
   ],
 
   phrases: [
@@ -617,11 +617,11 @@ const stepsData: Step[] = [
     "Avoid phone calls and speak quietly inside the post office."
   ],
   flashcards: [
-    { front: "郵便局", back: "Post Office (Yūbinkyoku)", image: "/images/postoffice.jpg" },
+    { front: "郵便局", back: "Post Office (Yūbinkyoku)", image: "/postoffice.jpg" },
     { front: "手紙", back: "Letter (Tegami)", image: "/letter.png" },
-    { front: "小包", back: "Parcel (Kozutsumi)", image: "/images/parcel.jpg" },
+    { front: "小包", back: "Parcel (Kozutsumi)", image: "/parcel.jpg" },
     { front: "切手", back: "Stamp (Kitte)", image: "/kitte.jpg" },
-    { front: "貯金", back: "Savings / Bank (Chokin)", image: "/images/postbank.jpg" }
+    // { front: "貯金", back: "Savings / Bank (Chokin)", image: "/postbank.jpg" }
   ],
   phrases: [
     { jp: "この手紙を送りたいです", romaji: "Kono tegami o okuritai desu", en: "I want to send this letter" },
@@ -643,11 +643,11 @@ const stepsData: Step[] = [
     "Speak slowly and clearly; translation apps can help."
   ],
   flashcards: [
-    { front: "区役所", back: "Ward Office / City Hall (Kuyakusho)", image: "/images/ward_office.jpg" },
-    { front: "住民票", back: "Residence Certificate (Jūminhyō)", image: "/images/residence_certificate.jpg" },
-    { front: "戸籍", back: "Family Registry (Koseki)", image: "/images/family_registry.jpg" },
-    { front: "印鑑登録", back: "Seal Registration (Inkan Tōroku)", image: "/images/seal_registration.jpg" },
-    { front: "証明書", back: "Certificate (Shōmeisho)", image: "/images/certificate.jpg" }
+    { front: "区役所", back: "Ward Office / City Hall (Kuyakusho)", },
+    { front: "住民票", back: "Residence Certificate (Jūminhyō)", },
+    { front: "戸籍", back: "Family Registry (Koseki)",  },
+    { front: "印鑑登録", back: "Seal Registration (Inkan Tōroku)", },
+    { front: "証明書", back: "Certificate (Shōmeisho)",  }
   ],
   phrases: [
     { jp: "住民票を取りたいです", romaji: "Jūminhyō o toritai desu", en: "I want to get a residence certificate" },
@@ -670,14 +670,14 @@ const stepsData: Step[] = [
     "Bring a Japanese-speaking friend or translation app if needed."
   ],
   flashcards: [
-    { front: "賃貸", back: "Rental / Lease (Chintai)", image: "/images/rental.jpg" },
-    { front: "物件", back: "Property (Bukken)", image: "/images/property.jpg" },
-    { front: "敷金", back: "Deposit (Shikikin)", image: "/images/deposit.jpg" },
-    { front: "礼金", back: "Key Money / Gift (Reikin)", image: "/images/keymoney.jpg" },
-    { front: "家賃", back: "Rent (Yachin)", image: "/images/rent.jpg" },
-    { front: "仲介手数料", back: "Agency Fee (Chūkai Tesūryō)", image: "/images/agency_fee.jpg" },
-    { front: "契約書", back: "Contract (Keiyakusho)", image: "/images/contract.jpg" },
-    { front: "引っ越し", back: "Moving (Hikkoshi)", image: "/images/moving.jpg" }
+    { front: "賃貸", back: "Rental / Lease (Chintai)",  },
+    { front: "物件", back: "Property (Bukken)",  },
+    { front: "敷金", back: "Deposit (Shikikin)",  },
+    { front: "礼金", back: "Key Money / Gift (Reikin)",  },
+    { front: "家賃", back: "Rent (Yachin)",  },
+    { front: "仲介手数料", back: "Agency Fee (Chūkai Tesūryō)",  },
+    { front: "契約書", back: "Contract (Keiyakusho)", },
+    { front: "引っ越し", back: "Moving (Hikkoshi)",  }
   ],
   phrases: [
     { jp: "この物件を見たいです", romaji: "Kono bukken o mitai desu", en: "I want to see this property" },
@@ -709,12 +709,12 @@ const stepsData: Step[] = [
     ],
 
     flashcards: [
-      { front: "警察", back: "Police (Keisatsu)", image: "/images/keisatsu.jpg" },
-      { front: "紛失", back: "Lost (Funsitsu)", image: "/images/funsitsu.jpg" },
-       { front: "届け出", back: "Report / Registration (Todokede)", image: "/images/todokede.jpg" },
-    { front: "事故", back: "Accident (Jiko)", image: "/images/jiko.jpg" },
-    { front: "窃盗", back: "Theft (Settō)", image: "/images/setto.jpg" },
-    { front: "身分証明書", back: "ID Card (Mibun Shōmeisho)", image: "/images/idcard.jpg" }
+      { front: "警察", back: "Police (Keisatsu)",  },
+      { front: "紛失", back: "Lost (Funsitsu)",  },
+       { front: "届け出", back: "Report / Registration (Todokede)",  },
+    { front: "事故", back: "Accident (Jiko)",  },
+    { front: "窃盗", back: "Theft (Settō)", },
+    { front: "身分証明書", back: "ID Card (Mibun Shōmeisho)",  }
     ],
 
     phrases: [
@@ -826,12 +826,27 @@ function InnerAccordion({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          background: "transparent",
+          background:open? "rgba(14,165,164,0.15)" :"transparent",
           border: "1px solid rgba(0,0,0,0.06)",
           cursor: "pointer",
           fontWeight: 600,
+          color: open ? "var(--accent, #0ea5a4)" : "var(--text, #111)",
+          transition: "all 0.2s ease",
         }}
         aria-expanded={open}
+        onMouseEnter={(e)=>{
+          if (!open){
+            (e.currentTarget as HTMLButtonElement).style.background = "rgba(14,165,164,0.08)";
+            (e.currentTarget as HTMLButtonElement).style.color = "var(--accent, #0ea5a4)";
+          }
+        }}
+        onMouseLeave={(e)=>{
+          if(!open){
+            (e.currentTarget as HTMLButtonElement).style.background ="transparent";
+            (e.currentTarget as HTMLButtonElement).style.color ="#111";
+            
+          }
+        }}
       >
         <span>{title}</span>
         <span style={{ opacity: 0.9 }}>{open ? <IconMinus /> : <IconPlus />}</span>
@@ -911,7 +926,7 @@ function FlipCardModal({
     borderRadius: 12,
     padding: 18,
     background: "var(--panel, #fff)",
-    boxShadow: "0 12px 40px rgba(2,6,23,0.25)",
+    boxShadow: "0 12px 40px rgba(117, 118, 122, 0.25)",
   };
 
   const flipContainer: React.CSSProperties = {
@@ -962,6 +977,28 @@ function FlipCardModal({
     alignItems: "center",
     textAlign: "center",
   };
+  const modalButtonStyle: React.CSSProperties = {
+  padding: "8px 12px",
+  borderRadius: 8,
+  border: "1px solid rgba(0,0,0,0.08)",
+  background: "transparent",
+  cursor: "pointer",
+  fontWeight: 600,
+  color: "#111",
+  transition: "all 0.25s ease",
+};
+
+function hoverModalButton(e: React.MouseEvent<HTMLButtonElement>, hover: boolean) {
+  const btn = e.currentTarget;
+  if (hover) {
+    btn.style.background = "rgba(14,165,164,0.15)";
+    btn.style.color = "var(--accent, #0ea5a4)";
+  } else {
+    btn.style.background = "transparent";
+    btn.style.color = "#111";
+  }
+}
+
 
   const imageStyle: React.CSSProperties = {
     width: "100%",
@@ -1043,6 +1080,33 @@ function FlipCardModal({
           <div style={{ marginTop: 14, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div style={{ display: "flex", gap: 8 }}>
               <button
+  onClick={prev}
+  style={modalButtonStyle}
+  onMouseEnter={(e) => hoverModalButton(e, true)}
+  onMouseLeave={(e) => hoverModalButton(e, false)}
+>
+  ← Prev
+</button>
+
+<button
+  onClick={() => setFlipped((s) => !s)}
+  style={modalButtonStyle}
+  onMouseEnter={(e) => hoverModalButton(e, true)}
+  onMouseLeave={(e) => hoverModalButton(e, false)}
+>
+  Flip
+</button>
+
+<button
+  onClick={next}
+  style={modalButtonStyle}
+  onMouseEnter={(e) => hoverModalButton(e, true)}
+  onMouseLeave={(e) => hoverModalButton(e, false)}
+>
+  Next →
+</button>
+
+              {/* <button
                 onClick={prev}
                 style={{
                   padding: "8px 12px",
@@ -1078,8 +1142,8 @@ function FlipCardModal({
                   cursor: "pointer",
                 }}
               >
-                Next →
-              </button>
+                Next → */}
+              {/* </button> */}
             </div>
 
             <div style={{ color: "rgba(0,0,0,0.6)", fontSize: 13 }}>
@@ -1117,9 +1181,23 @@ function Tabs({
               padding: "8px 12px",
               borderRadius: 8,
               cursor: "pointer",
-              border: active ? "1px solid rgba(0,0,0,0.12)" : "1px solid rgba(0,0,0,0.06)",
-              background: active ? "rgba(14,165,164,0.08)" : "transparent",
+              border: active ? "1px solid rgba(14,165,164,0.5)" : "1px solid rgba(0,0,0,0.06)",
+              background: active ? "rgba(14,165,164,0.12)" : "transparent",
+              color: active? "var(--accent, #0ea5a4)" : "var(--text, #111)",
               fontWeight: active ? 700 : 600,
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={(e)=> {
+              if(!active) {
+                (e.currentTarget as HTMLButtonElement).style.background="rgba(14,165,164,0.08)";
+                (e.currentTarget as HTMLButtonElement).style.color="var(--accent,#0ea5a4)";
+              }
+            }}
+            onMouseLeave={(e)=>{
+              if(!active){
+                (e.currentTarget as HTMLButtonElement).style.background="transparent";
+                (e.currentTarget as HTMLButtonElement).style.color="var(--text, #111)";
+              }
             }}
           >
             {tab}
@@ -1290,6 +1368,17 @@ function StepWithTabs({ step, id, openFlashcardsModal }: { step: Step; id: strin
                       cursor: "pointer",
                       border: "1px solid rgba(0,0,0,0.08)",
                       background: "transparent",
+                      color:"#111",
+                      fontWeight:600,
+                      transition:"all 0.25s ease",
+                    }}
+                    onMouseEnter={(e)=>{
+                      (e.currentTarget as HTMLButtonElement).style.background ="rgba(14,165,164,0.15)";
+                      (e.currentTarget as HTMLButtonElement).style.color = "var(--accent,#0ea5a4)";
+                    }}
+                    onMouseLeave={(e)=>{
+                      (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                      (e.currentTarget as HTMLButtonElement).style.color ="#111";
                     }}
                   >
                     Open Flashcards ▶
@@ -1374,7 +1463,7 @@ function StepWithTabs({ step, id, openFlashcardsModal }: { step: Step; id: strin
                       <div
                         key={`${id}-fc-${i}`}
                         style={{
-                          border: "1px solid rgba(0,0,0,0.06)",
+                          border: "1px solid rgba(254, 252, 252, 0.06)",
                           padding: 10,
                           borderRadius: 8,
                           minWidth: 140,
@@ -1399,7 +1488,7 @@ function StepWithTabs({ step, id, openFlashcardsModal }: { step: Step; id: strin
                       borderRadius: 8,
                       cursor: "pointer",
                       border: "1px solid rgba(0,0,0,0.08)",
-                      background: "transparent",
+                      background: "translucent",
                     }}
                   >
                     Open Flashcards Modal ▶

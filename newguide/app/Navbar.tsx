@@ -57,13 +57,13 @@ const Navbar: React.FC = () => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-    document.documentElement.setAttribute(
-    "data-theme",
-    theme === "light" ? "dark" : "light"
-  );
-  };
+  // const toggleTheme = () => {
+  //   setTheme(theme === "light" ? "dark" : "light");
+  //   document.documentElement.setAttribute(
+  //   "data-theme",
+  //   theme === "light" ? "dark" : "light"
+  // );
+  // };
 
   return (
     <nav className="navbar">
@@ -75,9 +75,9 @@ const Navbar: React.FC = () => {
         </h1>
 
         <div className="nav-actions">
-          <button className="theme-toggle" onClick={toggleTheme}>
+          {/* <button className="theme-toggle" onClick={toggleTheme}>
             {theme === "light" ? <Moon /> : <Sun />}
-          </button>
+          </button> */}
 
           <button
             className="menu-toggle"
@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
           <li><Link href="/">Home</Link></li>
            <li><Link href="/survival">Survival</Link></li>
           <li><Link href="/lessons">Lessons</Link></li>
-          <li><Link href="/tools">Tools</Link></li>
+          {/* <li><Link href="/tools">Tools</Link></li> */}
           <li><Link href="/search">Search</Link></li>
          
         </ul>

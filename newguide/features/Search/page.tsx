@@ -606,7 +606,7 @@ export default function SearchPage() {
   return (
     <div
       style={{
-        backgroundColor: "#fffaf0",
+        backgroundColor: "#ffffff",
         minHeight: "100vh",
         padding: "2rem",
         textAlign: "center",
@@ -616,7 +616,7 @@ export default function SearchPage() {
         style={{
           backgroundColor: "#ffffff",
           borderRadius: "16px",
-          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+          border:"1px solid #eaeaea",
           maxWidth: "800px",
           margin: "0 auto",
           padding: "2rem",
@@ -626,7 +626,7 @@ export default function SearchPage() {
           style={{
             fontSize: "2rem",
             fontWeight: "bold",
-            color: "#b36e00",
+            color: "#3781efff",
             marginBottom: "1rem",
           }}
         >
@@ -634,7 +634,7 @@ export default function SearchPage() {
         </h1>
         <p
           style={{
-            color: "#555",
+            color: "#444",
             marginBottom: "1.5rem",
             fontSize: "1.1rem",
           }}
@@ -661,17 +661,18 @@ export default function SearchPage() {
               flex: 1,
               maxWidth: "400px",
               padding: "0.6rem 1rem",
-              border: "1px solid #ccc",
+              border: "1px solid #ddd",
               borderRadius: "12px",
               fontSize: "1rem",
               outline: "none",
+              background:"#fff",
             }}
           />
           <button
             onClick={handleSearch}
             disabled={loading}
             style={{
-              backgroundColor: loading ? "#aaa" : "#c29654ff",
+              backgroundColor: loading ? "#101010ff" : "#5283ecff",
               color: "#fff",
               border: "none",
               borderRadius: "12px",
@@ -690,8 +691,8 @@ export default function SearchPage() {
           <div
             style={{
               textAlign: "left",
-              backgroundColor: "#fffaf5",
-              border: "1px solid #f0d8b8",
+              backgroundColor: "#fff",
+              border: "1px solid #eee",
               borderRadius: "12px",
               padding: "1.5rem",
               marginTop: "1.5rem",

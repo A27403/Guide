@@ -1,5 +1,5 @@
-import Tools from"../../features/tools/index";
+// import Tools from"../../features/tools/index";
 
-export default function ToolsPage() {
-  return <Tools />;
-}
+// export default function ToolsPage() {
+//   return <Tools />;
+// }

@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
           <li><Link href="/">Home</Link></li>
            <li><Link href="/survival">Survival</Link></li>
           <li><Link href="/lessons">Lessons</Link></li>
-          {/* <li><Link href="/tools">Tools</Link></li> */}
+          <li><Link href="/tools">Tools</Link></li>
           <li><Link href="/search">Search</Link></li>
          
         </ul>

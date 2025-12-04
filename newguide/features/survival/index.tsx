@@ -297,7 +297,7 @@ const stepsData: Step[] = [
     { front: "ペットボトル", back: "Plastic Bottle (Petto Botoru)", image: "/pet.jpg" },
     { front: "缶", back: "Can (Kan)", image: "/can.jpg" },
     { front: "ガラス瓶", back: "Glass Bottle (Garasu Bin)", image: "/bottles.jpg" },
-    { front: "紙", back: "Paper (Kami)", },
+    { front: "紙", back: "Paper (Kami)", image: "/images/kami.jpg" },
     { front: "段ボール", back: "Cardboard (Danbōru)", image: "/cardboard.jpg" },
     { front: "粗大ゴミ", back: "Oversized Trash (Sodai Gomi)", image: "/big.png" },
     { front: "危険物", back: "Hazardous Items (Kikenbutsu)", image: "/kiken.png" },
@@ -305,7 +305,7 @@ const stepsData: Step[] = [
     { front: "回収日", back: "Collection Day (Kaishūbi)", },
     // { front: "リサイクル", back: "Recycling (Risaikuru)", image: "" },
     { front: "分別", back: "Separation / Sorting (Bunbetsu)",  }, 
-    { front: "指定袋", back: "Designated Bag (Shitei Fukuro)", },
+    { front: "指定袋", back: "Designated Bag (Shitei Fukuro)", image: "/images/shiteifukuro.jpg" },
     
   ],
 

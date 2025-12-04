@@ -411,7 +411,7 @@ const features = [
   { name: "🗾 Survival Guide", path: "/survival", desc: "Tips for banks, hospitals, city office." },
   { name: "📘 Lessons", path: "/lessons", desc: "Study vocabulary, kanji, sentences." },
   
-  // { name: "🧭 Tools", path: "/tools", desc: "Weather, currency, maps, converters." },
+  { name: "🧭 Tools", path: "/tools", desc: "Weather, currency, maps, converters." },
   // { name: "📰 News", path: "/news", desc: "Latest updates and student info." },
   { name: "🔍 Search", path: "/search", desc: "Find phrases, tips and categories fast." },
 ];

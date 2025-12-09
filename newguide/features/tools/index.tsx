@@ -2,7 +2,7 @@
 "use client";
 import React, { useState } from "react";
 import { DollarSign, Sun, Train, MapPin } from "lucide-react";
-import CurrencyConverter from "./CurrencyConverter";
+// import CurrencyConverter from "./CurrencyConverter";
 import Weather from "./Weather";
 // import TrainRoute from "./TrainRoute";
 // import Map from "./Map"; // optional
@@ -11,7 +11,7 @@ const Tools: React.FC = () => {
   const [activeTool, setActiveTool] = useState<string | null>(null);
 
   const toolsData = [
-    { title: "Currency Converter", icon: <DollarSign size={22} />, component: <CurrencyConverter /> },
+    // { title: "Currency Converter", icon: <DollarSign size={22} />, component: <CurrencyConverter /> },
     { title: "Weather", icon: <Sun size={22} />, component: <Weather /> },
     //{ title: "Train Route", icon: <Train size={22} />, component: <TrainRoute /> },
     // { title: "Map", icon: <MapPin size={22} />, component: <Map /> },

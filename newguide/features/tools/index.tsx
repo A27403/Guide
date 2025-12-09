@@ -37,7 +37,7 @@ const Tools: React.FC = () => {
           transition: "color 0.3s ease",
         }}
       >
-        Practical Tools
+        
       </h1>
 
       <div

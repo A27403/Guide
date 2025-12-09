@@ -47,21 +47,21 @@ const cardStyle = (accent = "#0ea5a4"): React.CSSProperties => ({
 /* ===========================
    Map Embed
    =========================== */
-const MapEmbed = ({ address }: { address: string }) => {
-  const url = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
-  return (
-    <div style={{ marginTop: 10, borderRadius: 10, overflow: "hidden" }}>
-      <iframe
-        title={address}
-        src={url}
-        width="100%"
-        height={200}
-        style={{ border: 0, borderRadius: 8 }}
-        loading="lazy"
-      />
-    </div>
-  );
-};
+// const MapEmbed = ({ address }: { address: string }) => {
+//   const url = `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+//   return (
+//     <div style={{ marginTop: 10, borderRadius: 10, overflow: "hidden" }}>
+//       <iframe
+//         title={address}
+//         src={url}
+//         width="100%"
+//         height={200}
+//         style={{ border: 0, borderRadius: 8 }}
+//         loading="lazy"
+//       />
+//     </div>
+//   );
+// };
 
 /* ===========================
    Types & Data
@@ -1159,7 +1159,7 @@ function hoverModalButton(e: React.MouseEvent<HTMLButtonElement>, hover: boolean
 /* ===========================
    Tabs component
    =========================== */
-const TABS = ["Basics", "Important", "Tips", "Phrases", "Flashcards", "Map"] as const;
+const TABS = ["Basics", "Important", "Tips", "Phrases", "Flashcards", ] as const;
 type TabKey = (typeof TABS)[number];
 
 function Tabs({
@@ -1501,7 +1501,7 @@ function StepWithTabs({ step, id, openFlashcardsModal }: { step: Step; id: strin
           </div>
         )}
 
-        {tab === "Map" && (
+        {/* {tab === "Map" && (
           <div>
             {step.address ? (
               <div>
@@ -1517,7 +1517,7 @@ function StepWithTabs({ step, id, openFlashcardsModal }: { step: Step; id: strin
               <p>No address available for this place.</p>
             )}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
